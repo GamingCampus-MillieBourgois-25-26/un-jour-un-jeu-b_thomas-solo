@@ -13,10 +13,7 @@ BulletHell::BulletHell::BulletHell()
 	Enemy* enemy = new Enemy(ressourceModule);
 	enemy->SetRotation(90);
 	enemy->SetPosition(100,100);
-	Projectile* projectile = new Projectile(0,ressourceModule);
-	projectile->SetPosition(200, 100);
 	AddCalque();
 	AddGameObject(player,0);
 	AddGameObject(enemy,0);
-	AddGameObject(projectile,0);
 }

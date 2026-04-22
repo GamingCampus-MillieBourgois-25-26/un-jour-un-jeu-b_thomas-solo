@@ -4,6 +4,8 @@
 
 
 
+
+
 void ColisionBox::Init(sf::Vector2f size)
 {
 	sizeRect = size;
@@ -18,7 +20,10 @@ void ColisionBox::Start()
 
 void ColisionBox::Update(TimeModule* timeModule) {
 	rect.position = { owner->GetPosition().x - rect.size.x / 2, owner->GetPosition().y - rect.size.y / 2 };
+	rect.size = { owner->GetScale().x * sizeRect.x, owner->GetScale().y * sizeRect.y };
+
 	colisionModule->colisionBoxs.push_back(this);
+	
 }
 
 void ColisionBox::Render(WindowModule* windowModule)

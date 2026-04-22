@@ -12,6 +12,7 @@ class ColisionBox : public Component
 private:
 	ColisionModule* colisionModule;
 public:
+	std::vector<sf::Vector2f> points;
 	sf::FloatRect rect;
 	sf::Vector2f sizeRect;
 	void Init(sf::Vector2f size);

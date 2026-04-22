@@ -5,6 +5,7 @@
 
 int main()
 {
+    srand((unsigned int)time(0));
     Engine* engine = Engine::GetInstance();
     engine->Init();
     ModuleManager* moduleManger = engine->GetModuleManager();
@@ -16,6 +17,7 @@ int main()
     ressourceModule->AddTexture("BulletHellPlayer","Assets/BulletHell/playerShip1_green.png");
     ressourceModule->AddTexture("BulletHellEnemy","Assets/BulletHell/playerShip3_red.png");
     ressourceModule->AddTexture("BulletHellBullet","Assets/BulletHell/laserRed01.png");
+    ressourceModule->AddTexture("BulletHellRBullet","Assets/BulletHell/laserRed01.png");
 
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");

@@ -45,6 +45,7 @@ public:
 	void Move(sf::Vector2f pos) { transform.position_x += pos.x; transform.position_y += pos.y; }
 	void SetScale(float x, float y) { transform.scale_x = x; transform.scale_y = y; };
 	void SetRotation(float angle) { transform.rotation = angle; };
+	void Rotate(float angle) { transform.rotation += angle; }
 	void SetCalque(int _calque) { calque = _calque; }
 	void SetScene(Scene* newScene) { scene = newScene; }
 	sf::Vector2f GetPosition() { return { transform.position_x,transform.position_y }; };

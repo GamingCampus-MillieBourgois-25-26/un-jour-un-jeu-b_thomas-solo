@@ -8,7 +8,9 @@ namespace BulletHell
 	{
 	public:
 		float speed = 50;
-		Projectile(float speed, RessourceModule* ressource);
+		float rotateSpeed;
+		float gainRotation;
+		Projectile(float speed, float rotateSpeed, float gainRot, sf::Texture* tex);
 	};
 	class ProjectileMovement : public Component 
 	{

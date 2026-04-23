@@ -19,7 +19,7 @@ public:
 	void Update(TimeModule* timeModule) override;
 	void Render(WindowModule* windowModule)override;
 	void Destroy()override;
-	bool IsColliding(CollisionBox other);
+	virtual bool IsColliding(CollisionBox* other);
 	virtual void Collide(CollisionBox* other) {};
 };
 

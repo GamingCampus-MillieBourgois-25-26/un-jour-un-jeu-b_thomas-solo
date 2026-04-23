@@ -43,7 +43,7 @@ namespace TowerDefense
 	template<typename Enemy>
 	inline Enemy* WaveManager::CreateEnemy(int i)
 	{
-		Enemy* enemy = new Enemy(i);
+		Enemy* enemy = new Enemy(i, this);
 		owner->GetScene()->AddGameObject(enemy, 1);
 		return enemy;
 	}

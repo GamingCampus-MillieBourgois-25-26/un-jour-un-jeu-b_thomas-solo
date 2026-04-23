@@ -24,6 +24,8 @@ int main()
     ressourceModule->AddTexture("TowerDefensePasLourd", "Assets/TowerDefense/towerDefense_tile245.png");
     ressourceModule->AddTexture("TowerDefenseLourd", "Assets/TowerDefense/towerDefense_tile270.png");
     ressourceModule->AddTexture("TowerDefenseTropLourd", "Assets/TowerDefense/towerDefense_tile271.png");
+    ressourceModule->AddTexture("TowerDefenseMissileLuncher", "Assets/TowerDefense/towerDefense_tile206.png");
+    ressourceModule->AddTexture("TowerDefenseMissile", "Assets/TowerDefense/towerDefense_tile252.png");
 
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");

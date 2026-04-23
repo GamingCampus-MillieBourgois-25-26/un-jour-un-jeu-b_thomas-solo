@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\TowerDefense\Build.cpp" />
     <ClCompile Include="Source\TowerDefense\ButtonWave.cpp" />
     <ClCompile Include="Source\TowerDefense\GameMaster.cpp" />
     <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp" />
@@ -154,6 +155,7 @@
     <None Include="Include\BulletHell\EnemyBulletHell.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\TowerDefense\Build.h" />
     <ClInclude Include="Include\TowerDefense\ButtonWave.h" />
     <ClInclude Include="Include\TowerDefense\GameMaster.h" />
     <ClInclude Include="Include\TowerDefense\EnemyTowerDefense.h" />

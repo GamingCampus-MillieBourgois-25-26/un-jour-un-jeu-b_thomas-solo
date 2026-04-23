@@ -3,24 +3,25 @@
 #include <Engine.h>
 #include <RessourceModule.h>
 #include <CollisionBox.h>
-TowerDefense::Enemy::Enemy(float hp, float spd, float aTime): health(hp), speed(spd), activationTime(aTime){
-	CreateComponent<CollisionBox>();
+TowerDefense::Enemy::Enemy(float hp, float spd, float aTime, WaveManager* _waveManger): health(hp), speed(spd), activationTime(aTime), waveManger(_waveManger){
+	CollisionBox* box = CreateComponent<CollisionBox>();
+	box->Init({64,64});
 	CreateComponent<Mouvement>();
 }
 
-TowerDefense::PasLourd::PasLourd(float activationTime): Enemy(10,40,activationTime)
+TowerDefense::PasLourd::PasLourd(float activationTime, WaveManager* _waveManger) : Enemy(10, 40, activationTime, _waveManger)
 {
 	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefensePasLourd"), sf::IntRect({0,0},{64,64}));
 }
 
-TowerDefense::Lourd::Lourd(float activationTime): Enemy(25, 20, activationTime)
+TowerDefense::Lourd::Lourd(float activationTime, WaveManager* _waveManger) : Enemy(25, 20, activationTime, _waveManger)
 {
 	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefenseLourd"), sf::IntRect({ 0,0 }, { 64,64 }));
 }
 
-TowerDefense::TropLourd::TropLourd(float activationTime): Enemy(80, 10, activationTime)
+TowerDefense::TropLourd::TropLourd(float activationTime, WaveManager* _waveManger) : Enemy(80, 10, activationTime, _waveManger)
 {
 	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefenseTropLourd"), sf::IntRect({ 0,0 }, { 64,64 }));
@@ -29,7 +30,7 @@ TowerDefense::TropLourd::TropLourd(float activationTime): Enemy(80, 10, activati
 void TowerDefense::Mouvement::Start()
 {
 	enemy = static_cast<Enemy*>(owner);
-	owner->SetPosition(-100, 400);
+	//owner->SetPosition(-100, 400);
 	owner->SetRotation(0);
 }
 

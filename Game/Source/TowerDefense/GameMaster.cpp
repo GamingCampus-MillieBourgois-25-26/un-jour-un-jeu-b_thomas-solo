@@ -35,7 +35,6 @@ void TowerDefense::WaveManager::Update(TimeModule* timeModule)
 		
 	}
 	if (enemies.empty()) {
-		std::cout << enemies.size() << std::endl;
 		ButtonWave* button = static_cast<ButtonWave*>(owner->GetScene()->GetGameObject(2));
 		button->active = true;
 	}

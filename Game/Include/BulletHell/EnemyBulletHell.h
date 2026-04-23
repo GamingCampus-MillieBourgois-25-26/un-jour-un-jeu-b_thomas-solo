@@ -59,4 +59,4 @@ namespace BulletHell
 		void Shoot();
 	};
 }
-#include "Enemy.inl"
+#include "EnemyBulletHell.inl"

@@ -27,7 +27,7 @@
     <ClCompile Include="Source\BulletHell\Projectile.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BulletHell\Enemy.cpp">
+    <ClCompile Include="Source\BulletHell\EnemyBulletHell.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneMenu.cpp">
@@ -39,10 +39,22 @@
     <ClCompile Include="Source\BasicBox.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TowerDefense\TowerDefense.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TowerDefense\GameMaster.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TowerDefense\ButtonWave.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="Include\BulletHell\Enemy.inl">
+    <None Include="Include\BulletHell\EnemyBulletHell.inl">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
   </ItemGroup>
@@ -56,7 +68,7 @@
     <ClInclude Include="Include\BulletHell\Projectile.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Include\BulletHell\Enemy.h">
+    <ClInclude Include="Include\BulletHell\EnemyBulletHell.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Include\SceneMenu.h">
@@ -66,6 +78,18 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Include\BasicBox.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TowerDefense\TowerDefense.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TowerDefense\EnemyTowerDefense.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TowerDefense\GameMaster.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TowerDefense\ButtonWave.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

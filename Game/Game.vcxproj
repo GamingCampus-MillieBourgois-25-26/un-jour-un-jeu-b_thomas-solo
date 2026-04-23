@@ -131,14 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\TowerDefense\ButtonWave.cpp" />
+    <ClCompile Include="Source\TowerDefense\GameMaster.cpp" />
+    <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp" />
     <ClCompile Include="Source\BasicBox.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\SceneMenu.cpp" />
-    <ClCompile Include="Source\BulletHell\Enemy.cpp" />
+    <ClCompile Include="Source\BulletHell\EnemyBulletHell.cpp" />
     <ClCompile Include="Source\BulletHell\Projectile.cpp" />
     <ClCompile Include="Source\BulletHell\BulletHell.cpp" />
     <ClCompile Include="Source\BulletHell\Player.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\TowerDefense\TowerDefense.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -147,16 +151,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="Include\BulletHell\Enemy.inl" />
+    <None Include="Include\BulletHell\EnemyBulletHell.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\TowerDefense\ButtonWave.h" />
+    <ClInclude Include="Include\TowerDefense\GameMaster.h" />
+    <ClInclude Include="Include\TowerDefense\EnemyTowerDefense.h" />
     <ClInclude Include="Include\BasicBox.h" />
     <ClInclude Include="Include\Button.h" />
-    <ClInclude Include="Include\BulletHell\Enemy.h" />
+    <ClInclude Include="Include\BulletHell\EnemyBulletHell.h" />
     <ClInclude Include="Include\BulletHell\BulletHell.h" />
     <ClInclude Include="Include\BulletHell\Player.h" />
     <ClInclude Include="Include\BulletHell\Projectile.h" />
     <ClInclude Include="Include\SceneMenu.h" />
+    <ClInclude Include="Include\TowerDefense\TowerDefense.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

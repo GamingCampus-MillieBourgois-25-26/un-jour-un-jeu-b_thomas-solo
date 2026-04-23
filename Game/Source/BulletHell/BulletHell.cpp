@@ -3,7 +3,7 @@
 #include <RessourceModule.h>
 #include <Engine.h>
 #include <Include/BulletHell/Projectile.h>
-#include <Include/BulletHell/Enemy.h>
+#include <Include/BulletHell/EnemyBulletHell.h>
 
 BulletHell::BulletHell::BulletHell()
 {

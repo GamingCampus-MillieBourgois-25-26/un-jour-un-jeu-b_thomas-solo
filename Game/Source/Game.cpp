@@ -3,6 +3,7 @@
 #include <RessourceModule.h>
 #include "Include/BulletHell/BulletHell.h"
 #include <Include/SceneMenu.h>
+#include <Include/TowerDefense/TowerDefense.h>
 
 int main()
 {
@@ -20,10 +21,15 @@ int main()
     ressourceModule->AddTexture("BulletHellBullet","Assets/BulletHell/laserRed01.png");
     ressourceModule->AddTexture("BulletHellRBullet","Assets/BulletHell/laserRed01.png");
 
+    ressourceModule->AddTexture("TowerDefensePasLourd", "Assets/TowerDefense/towerDefense_tile245.png");
+    ressourceModule->AddTexture("TowerDefenseLourd", "Assets/TowerDefense/towerDefense_tile270.png");
+    ressourceModule->AddTexture("TowerDefenseTropLourd", "Assets/TowerDefense/towerDefense_tile271.png");
+
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");
+    sceneModule->AddScene<TowerDefense::TowerDefense>("TowerDefense");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("SceneMenu"));
+    sceneModule->SetMain(sceneModule->GetScene("TowerDefense"));
 
     engine->Start();
     engine->Run();

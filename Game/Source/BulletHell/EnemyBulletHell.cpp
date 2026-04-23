@@ -1,9 +1,9 @@
-#include <Include/BulletHell/Enemy.h>
 #include <SpriteRender.h>
 #include <RessourceModule.h>
 #include <CollisionBox.h>
 #include <Include/BulletHell/Projectile.h>
 #include <Engine.h>
+#include <Include/BulletHell/EnemyBulletHell.h>
 BulletHell::Enemy::Enemy(RessourceModule* ressourceModule)
 {
 	PaternManager* paternManager = CreateComponent<PaternManager>();
@@ -145,3 +145,4 @@ void BulletHell::HellMovement::Shoot() {
 	projectile->SetRotation(rand()%360);
 	paternManager->owner->GetScene()->AddGameObject(projectile, 0);
 }
+

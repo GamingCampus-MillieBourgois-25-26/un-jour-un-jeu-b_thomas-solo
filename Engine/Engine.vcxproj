@@ -146,8 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Include\Component\Audio.h" />
-    <ClInclude Include="Include\Component\ColisionBox.h" />
-    <ClInclude Include="Include\Module\ColisionModule.h" />
+    <ClInclude Include="Include\Component\CollisionBox.h" />
+    <ClInclude Include="Include\Module\CollisionModule.h" />
     <ClInclude Include="Include\Component.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="framework.h" />

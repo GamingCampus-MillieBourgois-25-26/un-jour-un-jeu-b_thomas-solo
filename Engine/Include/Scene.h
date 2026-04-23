@@ -22,8 +22,8 @@ public:
 	void AddCalque();
 
 protected:
-	std::vector<std::vector<GameObject*>> pendingObjects;
-	std::vector<std::vector<GameObject*>> pendingDestroy;
+	std::vector<GameObject*> pendingObjects;
+	std::vector<GameObject*> pendingDestroy;
 
 	void FlushPending();
 private:

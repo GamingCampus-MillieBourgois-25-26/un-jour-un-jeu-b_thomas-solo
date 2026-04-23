@@ -1,11 +1,11 @@
 #include <Include/BulletHell/Projectile.h>
 #include <SpriteRender.h>
 #include <RessourceModule.h>
-#include <ColisionBox.h>
+#include <CollisionBox.h>
 
 BulletHell::Projectile::Projectile(float spd, float rotateSpd, float gainRot, sf::Texture* tex):speed(spd), rotateSpeed(rotateSpd), gainRotation(gainRot)
 {
-	ColisionBox* box = CreateComponent<ColisionBox>();
+	CollisionBox* box = CreateComponent<CollisionBox>();
 	box->Init(sf::Vector2f(9,54));
 	SpriteRender* sprite = CreateComponent<SpriteRender>(tex, sf::IntRect({ 0,0 }, { 9,54 }));
 	sprite->offsetRotation = 90;

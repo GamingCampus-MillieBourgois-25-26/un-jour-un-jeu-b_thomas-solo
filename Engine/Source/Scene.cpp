@@ -63,9 +63,12 @@ GameObject* Scene::GetGameObject(int id)
 }
 void Scene::AddGameObject(GameObject* gameObject, int calque)
 {
+	while (calque >= gameObjects.size()) {
+		AddCalque();
+	}
 	gameObject->SetCalque(calque);
 	gameObject->SetScene(this);
-	pendingObjects[calque].push_back(gameObject);
+	pendingObjects.push_back(gameObject);
 }
 
 void Scene::DestroyObject(GameObject* gameObject)
@@ -75,41 +78,37 @@ void Scene::DestroyObject(GameObject* gameObject)
 	}
 	int calque = gameObject->GetCalque();
 	gameObject->destroyed = true;
-	pendingDestroy[calque].push_back(gameObject);
+	pendingDestroy.push_back(gameObject);
 }
 
 void Scene::AddCalque()
 {
 	std::vector<GameObject*> calque;
 	gameObjects.push_back(calque);
-	pendingObjects.push_back(calque);
-	pendingDestroy.push_back(calque);
 }
 
 void Scene::FlushPending()
 {
-	for (int i = 0; i < gameObjects.size(); i++) {
-		for(GameObject* object : pendingObjects[i])
-		{
-			gameObjects[i].push_back(object);
-			object->Start();
-		}
-		pendingObjects[i].clear();
+	for(GameObject* object : pendingObjects)
+	{
+		gameObjects[object->GetCalque()].push_back(object);
+		object->Start();
 	}
-	for (int i = 0; i < gameObjects.size(); i++) {
+	pendingObjects.clear();
+	
 
-		for (GameObject* obj : pendingDestroy[i])
+	for (GameObject* obj : pendingDestroy)
+	{
+		obj->Destroy();
+		auto it = std::find(gameObjects[obj->GetCalque()].begin(), gameObjects[obj->GetCalque()].end(), obj);
+		if (it != gameObjects[obj->GetCalque()].end())
 		{
-			obj->Destroy();
-			auto it = std::find(gameObjects[i].begin(), gameObjects[i].end(), obj);
-			if (it != gameObjects[i].end())
-			{
-				gameObjects[i].erase(it);
-			}
-
-			delete obj;
+			gameObjects[obj->GetCalque()].erase(it);
 		}
-		pendingDestroy[i].clear();	
+
+		delete obj;
 	}
+	pendingDestroy.clear();	
+	
 }
 

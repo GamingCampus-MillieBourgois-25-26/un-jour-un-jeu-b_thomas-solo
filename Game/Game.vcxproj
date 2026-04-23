@@ -131,6 +131,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BasicBox.cpp" />
+    <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\SceneMenu.cpp" />
     <ClCompile Include="Source\BulletHell\Enemy.cpp" />
     <ClCompile Include="Source\BulletHell\Projectile.cpp" />
     <ClCompile Include="Source\BulletHell\BulletHell.cpp" />
@@ -147,10 +150,13 @@
     <None Include="Include\BulletHell\Enemy.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\BasicBox.h" />
+    <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\BulletHell\Enemy.h" />
     <ClInclude Include="Include\BulletHell\BulletHell.h" />
     <ClInclude Include="Include\BulletHell\Player.h" />
     <ClInclude Include="Include\BulletHell\Projectile.h" />
+    <ClInclude Include="Include\SceneMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

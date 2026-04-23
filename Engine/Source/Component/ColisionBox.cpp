@@ -1,47 +1,47 @@
 #include "pch.h"
-#include "Include/Component/ColisionBox.h"
+#include "Include/Component/CollisionBox.h"
 #include "Include/Engine.h"
 
 
 
 
 
-void ColisionBox::Init(sf::Vector2f size)
+void CollisionBox::Init(sf::Vector2f size)
 {
 	sizeRect = size;
 }
 
-void ColisionBox::Start()
+void CollisionBox::Start()
 {
 	rect.size = { owner->GetScale().x * sizeRect.x, owner->GetScale().y * sizeRect.y };
 	rect.position = { owner->GetPosition().x - rect.size.x / 2, owner->GetPosition().y - rect.size.y / 2 };
-	colisionModule = Engine::GetInstance()->GetModuleManager()->GetModule<ColisionModule>();
+	collisionModule = Engine::GetInstance()->GetModuleManager()->GetModule<CollisionModule>();
 }
 
-void ColisionBox::Update(TimeModule* timeModule) {
+void CollisionBox::Update(TimeModule* timeModule) {
 	rect.position = { owner->GetPosition().x - rect.size.x / 2, owner->GetPosition().y - rect.size.y / 2 };
 	rect.size = { owner->GetScale().x * sizeRect.x, owner->GetScale().y * sizeRect.y };
 
-	colisionModule->colisionBoxs.push_back(this);
+	collisionModule->colisionBoxs.push_back(this);
 	
 }
 
-void ColisionBox::Render(WindowModule* windowModule)
+void CollisionBox::Render(WindowModule* windowModule)
 {
 	sf::RectangleShape rectangle(rect.size);
 	rectangle.setPosition(rect.position);
 	windowModule->GetWindow()->draw(rectangle);
 }
 
-void ColisionBox::Destroy()
+void CollisionBox::Destroy()
 {
-	auto it = std::find(colisionModule->colisionBoxs.begin(), colisionModule->colisionBoxs.end(), this);
-	if (it != colisionModule->colisionBoxs.end()) {
-		colisionModule->colisionBoxs.erase(it);
+	auto it = std::find(collisionModule->colisionBoxs.begin(), collisionModule->colisionBoxs.end(), this);
+	if (it != collisionModule->colisionBoxs.end()) {
+		collisionModule->colisionBoxs.erase(it);
 	}
 }
 
-bool ColisionBox::IsColliding(ColisionBox other) {
+bool CollisionBox::IsColliding(CollisionBox other) {
 	/*Utilise la methode AABB pour trouver les colisions avec une autre colisionBox
 	input:
 		Une autre boite de colision

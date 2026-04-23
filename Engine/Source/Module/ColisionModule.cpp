@@ -1,19 +1,20 @@
 #include "pch.h"
-#include "Include/Module/ColisionModule.h"
-#include "Include/Component/ColisionBox.h"
+#include "Include/Module/CollisionModule.h"
+#include "Include/Component/CollisionBox.h"
 
-void ColisionModule::Awake()
+void CollisionModule::Awake()
 {
 	sceneModule = moduleManager->GetModule<SceneModule>();
 
 }
 
-void ColisionModule::Update()
+void CollisionModule::Update()
 {
 	/*Prends une colisionBox et regarde toute les autre colisionBox pour voir s'ils se touchent*/
-	for(ColisionBox* collisonBoxI : colisionBoxs)
+	for(CollisionBox* collisonBoxI : colisionBoxs)
 	{
-		for (ColisionBox* collisionBoxJ : colisionBoxs) {
+		for (CollisionBox* collisionBoxJ : colisionBoxs)
+		{
 			if (collisonBoxI != collisionBoxJ) {
 				if (collisonBoxI->IsColliding(*collisionBoxJ)) {
 					collisonBoxI->Collide(collisionBoxJ);

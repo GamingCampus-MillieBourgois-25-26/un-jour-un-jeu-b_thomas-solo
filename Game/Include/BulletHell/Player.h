@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Component.h"
-#include "Component/ColisionBox.h"
+#include "Component/CollisionBox.h"
 class InputModule;
 class RessourceModule;
 namespace BulletHell
@@ -15,11 +15,11 @@ namespace BulletHell
 		bool Invicible = false;
 		void Update(TimeModule* timeModule)override;
 	};
-	class CollisionBoxPlayer : public ColisionBox {
+	class CollisionBoxPlayer : public CollisionBox {
 	public:
 		Invulnerability* invulnerability = nullptr;
 		void Start()override;
-		void Collide(ColisionBox* other)override;
+		void Collide(CollisionBox* other)override;
 	};
 	class Player : public GameObject  
 	{

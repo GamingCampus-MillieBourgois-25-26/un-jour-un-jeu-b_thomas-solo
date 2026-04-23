@@ -15,13 +15,18 @@ public:
 	void Render()override;
 	void Destroy()override;
 	template<typename T>
-	void AddScene(std::string name) {
+	T* AddScene(std::string name) {
+		for (Scene* scene : scenes) {
+			if (scene->GetName() == name)
+				DestroyScene(scene);
+		}
 		T* NewScene = new T();
 		NewScene->SetName(name);
 		if (NewScene != nullptr) {
 			scenes.push_back(NewScene);
 			NewScene->Start();
 		}
+		return NewScene;
 	}
 	void DestroyScene(Scene* scene) {
 		scene->Destroy();

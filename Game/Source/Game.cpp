@@ -2,6 +2,7 @@
 #include <SceneModule.h>
 #include <RessourceModule.h>
 #include "Include/BulletHell/BulletHell.h"
+#include <Include/SceneMenu.h>
 
 int main()
 {
@@ -21,7 +22,8 @@ int main()
 
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");
-    sceneModule->SetMain(sceneModule->GetScene("BulletHell"));
+    sceneModule->AddScene<SceneMenu>("SceneMenu");
+    sceneModule->SetMain(sceneModule->GetScene("SceneMenu"));
 
     engine->Start();
     engine->Run();

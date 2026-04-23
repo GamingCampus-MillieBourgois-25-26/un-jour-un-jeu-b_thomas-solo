@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Component\ColisionBox.h">
+    <ClInclude Include="Include\Component\CollisionBox.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Include\Component\Audio.h">
@@ -60,7 +60,7 @@
     <ClInclude Include="Include\Module\TimeModule.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Module\ColisionModule.h">
+    <ClInclude Include="Include\Module\CollisionModule.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Include\Module\RessourceModule.h">

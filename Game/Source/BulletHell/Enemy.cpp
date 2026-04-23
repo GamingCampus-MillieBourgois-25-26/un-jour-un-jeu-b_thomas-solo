@@ -1,7 +1,7 @@
 #include <Include/BulletHell/Enemy.h>
 #include <SpriteRender.h>
 #include <RessourceModule.h>
-#include <ColisionBox.h>
+#include <CollisionBox.h>
 #include <Include/BulletHell/Projectile.h>
 #include <Engine.h>
 BulletHell::Enemy::Enemy(RessourceModule* ressourceModule)
@@ -11,7 +11,7 @@ BulletHell::Enemy::Enemy(RessourceModule* ressourceModule)
 	paternManager->CreatePatern<TeleportationPatern>();
 	paternManager->CreatePatern<DumbShoot>();
 	paternManager->CreatePatern<HellMovement>(150,300,0.15,30);
-	ColisionBox* box = CreateComponent<ColisionBox>();
+	CollisionBox* box = CreateComponent<CollisionBox>();
 	box->Init(sf::Vector2f(98, 75));
 	SpriteRender* sprite = CreateComponent<SpriteRender>(ressourceModule->GetTexture("BulletHellEnemy"), sf::IntRect({ 0,0 }, { 98, 75 }));
 	sprite->offsetRotation = 90;

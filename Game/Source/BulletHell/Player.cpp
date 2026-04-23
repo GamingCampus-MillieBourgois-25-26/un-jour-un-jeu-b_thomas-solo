@@ -29,11 +29,11 @@ void BulletHell::InputPlayer::Update(TimeModule* timeModule)
 
 void BulletHell::CollisionBoxPlayer::Start()
 {
-	ColisionBox::Start();
+	CollisionBox::Start();
 	invulnerability = owner->GetComponent<Invulnerability>();
 }
 
-void BulletHell::CollisionBoxPlayer::Collide(ColisionBox* other)
+void BulletHell::CollisionBoxPlayer::Collide(CollisionBox* other)
 {
 	if(!invulnerability->Invicible)
 	{

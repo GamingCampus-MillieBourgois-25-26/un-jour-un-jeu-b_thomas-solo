@@ -4,7 +4,7 @@
 #include "Include/Module/SceneModule.h"
 #include "Include/Module/WindowModule.h"
 #include "Include/Module/TimeModule.h"
-#include "Include/Module/ColisionModule.h"
+#include "Include/Module/CollisionModule.h"
 #include "Include/Module/RessourceModule.h"
 
 
@@ -14,7 +14,7 @@ void ModuleManager::CreateDefaultModule()
 	CreateModule<InputModule>();
 	CreateModule<WindowModule>();
 	CreateModule<TimeModule>();
-	CreateModule<ColisionModule>();
+	CreateModule<CollisionModule>();
 	CreateModule<RessourceModule>();
 }
 void ModuleManager::Awake() {

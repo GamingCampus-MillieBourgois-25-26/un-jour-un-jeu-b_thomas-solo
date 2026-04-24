@@ -9,7 +9,7 @@ TowerDefense::Build::Build(float _range, float shootCooldownM, float cst):range(
 	CreateComponent<CircleCollision>(range);
 }
 
-TowerDefense::RocketLauncher::RocketLauncher(): Build(50,5,500.f)
+TowerDefense::RocketLauncher::RocketLauncher(): Build(250,5,500.f)
 {
 	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefenseMissileLuncher"), sf::IntRect({ 0, 0 }, { 64,64 }));
@@ -21,12 +21,12 @@ TowerDefense::RocketLauncher::RocketLauncher(): Build(50,5,500.f)
 			shootCooldown = shootCooldownMax;
 			Enemy* enemy = static_cast<Enemy*>(other->owner);
 			RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
-			CollisionRocket* box = CreateComponent<CollisionRocket>();
-			box->Init({ 20,20 });
 			Projectile* projectile = new Projectile(200, ressourceModule->GetTexture("TowerDefenseMissile"),enemy);
 			projectile->SetName("Enemy");
 			projectile->SetPosition(GetPosition());
 			projectile->SetRotation(rand() % 360);
+			CollisionRocket* box = projectile->CreateComponent<CollisionRocket>();
+			box->Init({ 20,20 });
 			CircleCollision* circle = projectile->CreateComponent<CircleCollision>(20);
 			circle->collide = [projectile](CollisionBox* other) {
 				if (projectile->explose && other->owner->GetName() == "Enemy") {
@@ -45,7 +45,7 @@ TowerDefense::RocketLauncher::RocketLauncher(): Build(50,5,500.f)
 
 TowerDefense::Projectile::Projectile(float spd, sf::Texture* tex, Enemy* emy) :speed(spd), enemy(emy)
 {;
-	SpriteRender* sprite = CreateComponent<SpriteRender>(tex, sf::IntRect({ 0,0 }, static_cast<sf::Vector2i>(tex->getSize())));
+	SpriteRender* sprite = CreateComponent<SpriteRender>(tex, sf::IntRect({ 0,0 }, {64,64}));
 	CreateComponent<ProjectileMovement>();
 }
 void TowerDefense::CollisionRocket::Collide(CollisionBox* other)

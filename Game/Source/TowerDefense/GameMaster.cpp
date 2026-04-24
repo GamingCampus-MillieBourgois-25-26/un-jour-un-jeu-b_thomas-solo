@@ -73,13 +73,12 @@ void TowerDefense::WaveManager::CreateWave(Wave wave)
 
 void TowerDefense::WaveManager::DestroyEnemy(Enemy* dEnemy)
 {
-	for (Enemy* enemy : enemies) {
-		auto it = std::find(enemies.begin(), enemies.end(), dEnemy);
-		if (it != enemies.end())
-		{
-			enemies.erase(it);
-		}
+	auto it = std::find(enemies.begin(), enemies.end(), dEnemy);
+	if (it != enemies.end())
+	{
+		enemies.erase(it);
 	}
+	
 	dEnemy->GetScene()->DestroyObject(dEnemy);
 }
 

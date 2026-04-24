@@ -5,6 +5,14 @@ CircleCollision::CircleCollision(float rds):radius(rds)
 {
 }
 
+void CircleCollision::Render(WindowModule* windowModule)
+{
+    /*sf::CircleShape circle(radius);
+    circle.setPosition(owner->GetPosition());
+    circle.setOrigin(circle.getGeometricCenter());
+    windowModule->GetWindow()->draw(circle);*/
+}
+
 bool CircleCollision::IsColliding(CollisionBox* other)
 {
     CircleCollision* circle = dynamic_cast<CircleCollision*>(other);

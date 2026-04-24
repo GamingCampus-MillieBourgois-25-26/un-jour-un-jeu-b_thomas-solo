@@ -21,7 +21,6 @@ void CollisionBox::Start()
 void CollisionBox::Update(TimeModule* timeModule) {
 	rect.position = { owner->GetPosition().x - rect.size.x / 2, owner->GetPosition().y - rect.size.y / 2 };
 	rect.size = { owner->GetScale().x * sizeRect.x, owner->GetScale().y * sizeRect.y };
-	std::cout << owner->GetName() << ", ";
 	collisionModule->colisionBoxs.push_back(this);
 	
 }

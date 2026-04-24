@@ -13,32 +13,47 @@ TowerDefense::RocketLauncher::RocketLauncher(): Build(50,5,500.f)
 {
 	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefenseMissileLuncher"), sf::IntRect({ 0, 0 }, { 64,64 }));
+	CreateComponent<CooldownUpdater>();
 	CircleCollision* circle = GetComponent<CircleCollision>();
 	circle->collide = [this](CollisionBox* other) {
-		Enemy* enemy = static_cast<Enemy*>(other->owner);
-		if (enemy && shootCooldown <= 0) {
+		
+		if (other->owner->GetName() == "Enemy" && shootCooldown <= 0) {
 			shootCooldown = shootCooldownMax;
+			Enemy* enemy = static_cast<Enemy*>(other->owner);
 			RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
+			CollisionRocket* box = CreateComponent<CollisionRocket>();
+			box->Init({ 20,20 });
 			Projectile* projectile = new Projectile(200, ressourceModule->GetTexture("TowerDefenseMissile"),enemy);
 			projectile->SetName("Enemy");
 			projectile->SetPosition(GetPosition());
 			projectile->SetRotation(rand() % 360);
+			CircleCollision* circle = projectile->CreateComponent<CircleCollision>(20);
+			circle->collide = [projectile](CollisionBox* other) {
+				if (projectile->explose && other->owner->GetName() == "Enemy") {
+					Enemy* enemy = static_cast<Enemy*>(other->owner);
+					enemy->health -= 10;
+					if (enemy->health <= 0) {
+						enemy->waveManger->DestroyEnemy(enemy);
+						std::cout << "boum" << std::endl;
+					}
+				}
+				};
 			scene->AddGameObject(projectile, 1);
-		}
-		else {
-			shootCooldown -= Engine::GetInstance()->GetModuleManager()->GetModule<TimeModule>()->GetDeltaTime();
 		}
 		};
 }
 
 TowerDefense::Projectile::Projectile(float spd, sf::Texture* tex, Enemy* emy) :speed(spd), enemy(emy)
-{
-	CollisionBox* box = CreateComponent<CollisionBox>();
-	box->Init(static_cast<sf::Vector2f>(tex->getSize()));
+{;
 	SpriteRender* sprite = CreateComponent<SpriteRender>(tex, sf::IntRect({ 0,0 }, static_cast<sf::Vector2i>(tex->getSize())));
 	CreateComponent<ProjectileMovement>();
 }
-
+void TowerDefense::CollisionRocket::Collide(CollisionBox* other)
+{
+	if (other->owner->GetName() == "Enemy") {
+		static_cast<Projectile*>(owner)->explose = true;
+	}
+}
 void TowerDefense::ProjectileMovement::Start()
 {
 	projectile = static_cast<Projectile*>(owner);
@@ -60,3 +75,12 @@ void TowerDefense::ProjectileMovement::Update(TimeModule* timeModule)
 	}
 }
 
+void TowerDefense::CooldownUpdater::Start()
+{
+	build = static_cast<Build*>(owner);
+}
+
+void TowerDefense::CooldownUpdater::Update(TimeModule* timeModule)
+{
+	build->shootCooldown -= timeModule->GetDeltaTime();
+}

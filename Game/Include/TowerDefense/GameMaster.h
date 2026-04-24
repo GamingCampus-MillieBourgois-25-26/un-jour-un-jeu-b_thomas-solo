@@ -39,6 +39,7 @@ namespace TowerDefense
 		void CreateWave(Wave wave);
 		template<typename Enemy>
 		Enemy* CreateEnemy(int i);
+		void DestroyEnemy(Enemy* enemy);
 	};
 	template<typename Enemy>
 	inline Enemy* WaveManager::CreateEnemy(int i)

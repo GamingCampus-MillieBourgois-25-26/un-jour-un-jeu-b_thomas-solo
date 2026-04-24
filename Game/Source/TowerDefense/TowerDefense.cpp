@@ -12,10 +12,11 @@ TowerDefense::TowerDefense::TowerDefense()
 	button->SetPosition(600, 100);
 	RocketLauncher* launcher = new RocketLauncher();
 	launcher->SetPosition(400, 400);
+	launcher->SetName("launcher");
 	PasLourd* dummy = new PasLourd(500, gameMaster->GetComponent<WaveManager>());
 	dummy->SetPosition(350, 350);
 	AddGameObject(gameMaster, 0);
 	AddGameObject(button, 0);
 	AddGameObject(launcher, 0);
-	AddGameObject(dummy, 0);
+	//AddGameObject(dummy, 0);
 }

@@ -71,6 +71,18 @@ void TowerDefense::WaveManager::CreateWave(Wave wave)
 	}
 }
 
+void TowerDefense::WaveManager::DestroyEnemy(Enemy* dEnemy)
+{
+	for (Enemy* enemy : enemies) {
+		auto it = std::find(enemies.begin(), enemies.end(), dEnemy);
+		if (it != enemies.end())
+		{
+			enemies.erase(it);
+		}
+	}
+	dEnemy->GetScene()->DestroyObject(dEnemy);
+}
+
 TowerDefense::Wave::Wave(int pasLourd, int lourd, int tropLourd): nbPasLourd(pasLourd), nbLourd(lourd), nbTropLourd(tropLourd)
 {
 	TotalEnemy = pasLourd + lourd + tropLourd;

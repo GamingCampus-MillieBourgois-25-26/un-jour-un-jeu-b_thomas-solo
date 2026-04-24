@@ -7,12 +7,14 @@ TowerDefense::Enemy::Enemy(float hp, float spd, float aTime, WaveManager* _waveM
 	CollisionBox* box = CreateComponent<CollisionBox>();
 	box->Init({64,64});
 	CreateComponent<Mouvement>();
+	name = "Enemy";
 }
 
 TowerDefense::PasLourd::PasLourd(float activationTime, WaveManager* _waveManger) : Enemy(10, 40, activationTime, _waveManger)
 {
 	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefensePasLourd"), sf::IntRect({0,0},{64,64}));
+
 }
 
 TowerDefense::Lourd::Lourd(float activationTime, WaveManager* _waveManger) : Enemy(25, 20, activationTime, _waveManger)

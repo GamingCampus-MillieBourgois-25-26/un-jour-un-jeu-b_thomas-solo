@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "GameMaster.h"
+#include <CollisionBox.h>
 namespace TowerDefense
 {
 	class Build : public GameObject
@@ -17,13 +18,30 @@ namespace TowerDefense
 		RocketLauncher();
 
 	};
+	class CooldownUpdater : public Component
+	{
+	public:
+		Build* build = nullptr;
+		void Start()override;
+		void Update(TimeModule* timeModule)override;
+	};
+
+	
+
 	class Projectile : public GameObject 
 	{
 	public:
 		float speed;
 		Enemy* enemy;
+		bool explose = false;
 		Projectile(float spd, sf::Texture* tex, Enemy* enemy);
 	};
+	class CollisionRocket : public CollisionBox
+	{
+	public:
+		void Collide(CollisionBox* other)override;
+	};
+
 	class ProjectileMovement : public Component
 	{
 	public:

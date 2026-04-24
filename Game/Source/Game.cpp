@@ -4,6 +4,8 @@
 #include "Include/BulletHell/BulletHell.h"
 #include <Include/SceneMenu.h>
 #include <Include/TowerDefense/TowerDefense.h>
+#include <Include/Clicker/Clicker.h>
+
 
 int main()
 {
@@ -16,6 +18,8 @@ int main()
     windowModule->SetWindowName("window");
 
     RessourceModule* ressourceModule = moduleManger->GetModule<RessourceModule>();
+    ressourceModule->AddFont("font", "Assets/font/Kenney Pixel Square.ttf");
+
     ressourceModule->AddTexture("BulletHellPlayer","Assets/BulletHell/playerShip1_green.png");
     ressourceModule->AddTexture("BulletHellEnemy","Assets/BulletHell/playerShip3_red.png");
     ressourceModule->AddTexture("BulletHellBullet","Assets/BulletHell/laserRed01.png");
@@ -28,8 +32,9 @@ int main()
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");
     sceneModule->AddScene<TowerDefense::TowerDefense>("TowerDefense");
+    sceneModule->AddScene<Clicker::Clicker>("Clicker");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("TowerDefense"));
+    sceneModule->SetMain(sceneModule->GetScene("Clicker"));
 
     engine->Start();
     engine->Run();

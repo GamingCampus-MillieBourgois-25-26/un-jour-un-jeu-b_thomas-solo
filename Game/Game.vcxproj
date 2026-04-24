@@ -131,6 +131,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Clicker\AutoUpgrade.cpp" />
+    <ClCompile Include="Source\Clicker\GameMasterClicker.cpp" />
+    <ClCompile Include="Source\Clicker\Clicker.cpp" />
     <ClCompile Include="Source\TowerDefense\ButtonWave.cpp" />
     <ClCompile Include="Source\TowerDefense\GameMaster.cpp" />
     <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp" />
@@ -143,6 +146,8 @@
     <ClCompile Include="Source\BulletHell\Player.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\TowerDefense\TowerDefense.cpp" />
+    <ClCompile Include="Source\Text.cpp" />
+    <ClCompile Include="Source\Clicker\UpgradeAutoUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -154,6 +159,9 @@
     <None Include="Include\BulletHell\EnemyBulletHell.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Clicker\AutoUpgrade.h" />
+    <ClInclude Include="Include\Clicker\GameMasterClicker.h" />
+    <ClInclude Include="Include\Clicker\Clicker.h" />
     <ClInclude Include="Include\TowerDefense\ButtonWave.h" />
     <ClInclude Include="Include\TowerDefense\GameMaster.h" />
     <ClInclude Include="Include\TowerDefense\EnemyTowerDefense.h" />
@@ -165,6 +173,8 @@
     <ClInclude Include="Include\BulletHell\Projectile.h" />
     <ClInclude Include="Include\SceneMenu.h" />
     <ClInclude Include="Include\TowerDefense\TowerDefense.h" />
+    <ClInclude Include="Include\Text.h" />
+    <ClInclude Include="Include\Clicker\UpgradeAutoUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

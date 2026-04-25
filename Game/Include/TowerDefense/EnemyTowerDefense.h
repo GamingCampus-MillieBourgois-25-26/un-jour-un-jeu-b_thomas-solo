@@ -3,30 +3,15 @@
 #include "Component.h"
 namespace TowerDefense
 {
-	class WaveManager;
+	class GameMaster;
 	class Enemy : public GameObject
 	{
 	public:
-		WaveManager* waveManger;
+		GameMaster* gameMaster;
 		float health;
 		float speed;
 		float activationTime;
-		Enemy(float hp, float spd, float activationTime, WaveManager* waveManger);
-	};
-	class PasLourd : public Enemy
-	{
-	public:
-		PasLourd(float activationTime, WaveManager* _waveManger);
-	};
-	class Lourd : public Enemy
-	{
-	public:
-		Lourd(float activationTime, WaveManager* _waveManger);
-	};
-	class TropLourd : public Enemy
-	{
-	public:
-		TropLourd(float activationTime, WaveManager* _waveManger);
+		Enemy(float hp, float spd, float activationTime, GameMaster* _gameMaster, sf::Texture* tex);
 	};
 
 	class Mouvement : public Component
@@ -37,6 +22,7 @@ namespace TowerDefense
 		int currentTarget = 0;
 		void Start()override;
 		void Update(TimeModule* timeModule)override;
+		void Destroy()override;
 		void Move(sf::Vector2f target, TimeModule* timeModule);
 
 	};

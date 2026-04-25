@@ -37,15 +37,8 @@ namespace TowerDefense
 		void Start()override;
 		void Update(TimeModule* timeModule)override;
 		void CreateWave(Wave wave);
-		template<typename Enemy>
-		Enemy* CreateEnemy(int i);
+		Enemy* CreateEnemy(int i, float hp, float spd, sf::Texture* tex);
 		void DestroyEnemy(Enemy* enemy);
 	};
-	template<typename Enemy>
-	inline Enemy* WaveManager::CreateEnemy(int i)
-	{
-		Enemy* enemy = new Enemy(i, this);
-		owner->GetScene()->AddGameObject(enemy, 1);
-		return enemy;
-	}
+	
 }

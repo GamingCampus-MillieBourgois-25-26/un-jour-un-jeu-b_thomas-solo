@@ -22,21 +22,24 @@ TowerDefense::RocketLauncher::RocketLauncher(): Build(250,5,500.f)
 			Enemy* enemy = static_cast<Enemy*>(other->owner);
 			RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 			Projectile* projectile = new Projectile(200, ressourceModule->GetTexture("TowerDefenseMissile"),enemy);
-			projectile->SetName("Enemy");
 			projectile->SetPosition(GetPosition());
-			projectile->SetRotation(rand() % 360);
 			CollisionRocket* box = projectile->CreateComponent<CollisionRocket>();
 			box->Init({ 20,20 });
-			CircleCollision* circle = projectile->CreateComponent<CircleCollision>(20);
+			CircleCollision* circle = projectile->CreateComponent<CircleCollision>(40);
 			circle->collide = [projectile](CollisionBox* other) {
+
 				if (projectile->explose && other->owner->GetName() == "Enemy") {
 					Enemy* enemy = static_cast<Enemy*>(other->owner);
 					enemy->health -= 10;
-					if (enemy->health <= 0) {
-						enemy->waveManger->DestroyEnemy(enemy);
+					std::cout << "hit" << std::endl;
+					if (enemy->health <= 0 && enemy->gameMaster->GetComponent<WaveManager>()) {
+						enemy->gameMaster->GetComponent<WaveManager>()->DestroyEnemy(enemy);
 						std::cout << "boum" << std::endl;
 					}
+					projectile->GetScene()->DestroyObject(projectile);
 				}
+				else
+					std::cout << projectile->explose << " : " << other->owner->GetName() << std::endl;
 				};
 			scene->AddGameObject(projectile, 1);
 		}

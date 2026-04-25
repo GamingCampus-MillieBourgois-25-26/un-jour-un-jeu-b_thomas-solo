@@ -33,7 +33,6 @@ bool CircleCollision::IsColliding(CollisionBox* other)
     }
     else
     {
-        std::cout << "par-la" << std::endl;
         if (CalculateDistance(circle->owner->GetPosition()) < radius + circle->radius) {
             return true;
         }

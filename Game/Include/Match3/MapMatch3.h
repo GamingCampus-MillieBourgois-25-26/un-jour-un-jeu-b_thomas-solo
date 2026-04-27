@@ -1,0 +1,44 @@
+#pragma once
+#include "GameObject.h"
+#include "Component.h"
+#include <InputModule.h>
+#include "Candy.h"
+namespace Match3
+{
+	class MapMatch3 : public GameObject
+	{
+	public:
+		std::vector<Candy*>map;
+		int mapWidth = 10;
+		int mapHeight = 10;
+		int mapTileSize = 50;
+		MapMatch3();
+		void InitMap();
+		void Awake()override;
+		Candy* CreateCandy(int x, int y);
+		Candy* MakeCandy(int i, sf::Color color, int x, int y);
+	};
+	class MapUpdater : public Component {
+	public:
+		MapMatch3* map = nullptr;
+		InputModule* input = nullptr;
+		void Start()override;
+		void Update(TimeModule* timeModule)override;
+		void HandleInput();
+		bool Gravity();
+		void Swap(sf::Vector2i pos1, sf::Vector2i pos2);
+		void Swap(int pos1, int pos2);
+		void MatchAll();
+		sf::Vector2i CheckCandy(int i, int id, std::vector<Candy*> &candyDelete);
+		void PrintCandyDelete(std::vector<Candy*> candies);
+
+	};
+	class MapRender : public Component {
+	public:
+		MapMatch3* map = nullptr;
+		sf::RectangleShape border;
+		void Start()override;
+		void Render(WindowModule* window)override;
+	};
+}
+

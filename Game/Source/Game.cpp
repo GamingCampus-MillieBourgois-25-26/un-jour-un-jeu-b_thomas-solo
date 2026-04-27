@@ -5,6 +5,7 @@
 #include <Include/SceneMenu.h>
 #include <Include/TowerDefense/TowerDefense.h>
 #include <Include/Clicker/Clicker.h>
+#include <Include/Match3/Match3.h>
 
 
 int main()
@@ -33,8 +34,9 @@ int main()
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");
     sceneModule->AddScene<TowerDefense::TowerDefense>("TowerDefense");
     sceneModule->AddScene<Clicker::Clicker>("Clicker");
+    sceneModule->AddScene<Match3::Match3>("Match3");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("Clicker"));
+    sceneModule->SetMain(sceneModule->GetScene("Match3"));
 
     engine->Start();
     engine->Run();

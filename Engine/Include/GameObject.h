@@ -56,6 +56,7 @@ public:
 	int GetId() { return id; }
 	Scene* GetScene() { return scene; }
 	void Start();
+	virtual void Awake() {};
 	void Update(TimeModule* timeModule);
 	void Render(WindowModule* window);
 	void Destroy();

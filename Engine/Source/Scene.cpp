@@ -68,6 +68,7 @@ void Scene::AddGameObject(GameObject* gameObject, int calque)
 	}
 	gameObject->SetCalque(calque);
 	gameObject->SetScene(this);
+	gameObject->Awake();
 	pendingObjects.push_back(gameObject);
 }
 

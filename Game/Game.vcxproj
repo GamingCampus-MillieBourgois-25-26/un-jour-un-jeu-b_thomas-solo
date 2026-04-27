@@ -131,6 +131,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Match3\Candy.cpp" />
+    <ClCompile Include="Source\Match3\MapMatch3.cpp" />
+    <ClCompile Include="Source\Match3\Match3.cpp" />
     <ClCompile Include="Source\Clicker\AutoUpgrade.cpp" />
     <ClCompile Include="Source\Clicker\GameMasterClicker.cpp" />
     <ClCompile Include="Source\Clicker\Clicker.cpp" />
@@ -159,6 +162,7 @@
     <None Include="Include\BulletHell\EnemyBulletHell.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Match3\Candy.h" />
     <ClInclude Include="Include\Clicker\AutoUpgrade.h" />
     <ClInclude Include="Include\Clicker\GameMasterClicker.h" />
     <ClInclude Include="Include\Clicker\Clicker.h" />
@@ -175,6 +179,8 @@
     <ClInclude Include="Include\TowerDefense\TowerDefense.h" />
     <ClInclude Include="Include\Text.h" />
     <ClInclude Include="Include\Clicker\UpgradeAutoUp.h" />
+    <ClInclude Include="Include\Match3\Match3.h" />
+    <ClInclude Include="Include\Match3\MapMatch3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

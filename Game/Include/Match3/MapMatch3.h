@@ -22,14 +22,18 @@ namespace Match3
 	public:
 		MapMatch3* map = nullptr;
 		InputModule* input = nullptr;
+		sf::Vector2i first = sf::Vector2i(-1,-1);
+		sf::Vector2i second = sf::Vector2i(-1, -1);
 		void Start()override;
 		void Update(TimeModule* timeModule)override;
 		void HandleInput();
+		void FillMap();
 		bool Gravity();
 		void Swap(sf::Vector2i pos1, sf::Vector2i pos2);
 		void Swap(int pos1, int pos2);
 		void MatchAll();
 		sf::Vector2i CheckCandy(int i, int id, std::vector<Candy*> &candyDelete);
+		void DeleteCandy(std::vector<Candy*>deleteCandy);
 		void PrintCandyDelete(std::vector<Candy*> candies);
 
 	};

@@ -7,7 +7,6 @@ Match3::MapMatch3::MapMatch3()
 {
 	CreateComponent<MapUpdater>();
 	CreateComponent<MapRender>();
-	CreateComponent<MapUpdater>();
 }
 
 void Match3::MapMatch3::InitMap()
@@ -69,6 +68,7 @@ void Match3::MapUpdater::Start()
 void Match3::MapUpdater::Update(TimeModule* timeModule)
 {
 	HandleInput();
+	FillMap();
 	if (Gravity()) {
 		MatchAll();
 	}
@@ -78,7 +78,31 @@ void Match3::MapUpdater::HandleInput()
 {
 	if (input->GetMouseButtonPressing(sf::Mouse::Button::Left)) {
 		sf::Vector2f mousePos = input->GetMousePosition();
-		std::cout << (int)(mousePos.x - owner->GetPosition().x) / map->mapTileSize << " : " << (int)(mousePos.y - owner->GetPosition().y) / map->mapTileSize << std::endl;
+		mousePos.x = (int)(mousePos.x - owner->GetPosition().x) / map->mapTileSize;
+		mousePos.y = (int)(mousePos.y - owner->GetPosition().y) / map->mapTileSize;
+		if (mousePos.x >= 0 && mousePos.x < map->mapWidth && mousePos.y >= 0 && mousePos.y < map->mapWidth && map->map[mousePos.y * map->mapWidth + mousePos.x]) {
+			if (first == sf::Vector2i(-1, -1)) {
+				first = static_cast<sf::Vector2i>(mousePos);
+			}
+			else {
+				sf::Vector2i delta = static_cast<sf::Vector2i>(mousePos) - first;
+				float distance = sqrt(delta.x * delta.x + delta.y * delta.y);
+				if (distance > 1)
+					std::cout << "trop loin";
+				else
+					Swap(first, static_cast<sf::Vector2i>(mousePos));
+				first = sf::Vector2i(-1, -1);
+			}
+		}
+	}
+}
+
+void Match3::MapUpdater::FillMap()
+{
+	for (int i = 0; i < map->mapWidth; i++) {
+		if (map->map[i] == nullptr) {
+			map->map[i] = map->CreateCandy(i % map->mapWidth, 0);
+		}
 	}
 }
 
@@ -129,9 +153,7 @@ void Match3::MapUpdater::MatchAll()
 		candyDelete.clear();
 		if (map->map[i]) {
 			CheckCandy(i, map->map[i]->GetId(), candyDelete);
-			std::cout << i << " (";
-			PrintCandyDelete(candyDelete);
-			std::cout << " )" << std::endl;
+			DeleteCandy(candyDelete);
 		}
 	}
 }
@@ -147,7 +169,7 @@ sf::Vector2i Match3::MapUpdater::CheckCandy(int i, int id, std::vector<Candy*>& 
 		res.x += 1 + CheckCandy(i + 1, id, candyDelete).x;
 	else
 		res.x++;
-	if ((i - 1) % map->mapWidth != map->mapWidth - 1)
+	if (i - 1 >= 0 && (i - 1) % map->mapWidth != map->mapWidth - 1)
 		res.x += 1 + CheckCandy(i - 1, id, candyDelete).x;
 	else
 		res.x++;
@@ -160,6 +182,56 @@ sf::Vector2i Match3::MapUpdater::CheckCandy(int i, int id, std::vector<Candy*>& 
 	else
 		res.y++;
 	return res;
+}
+
+void Match3::MapUpdater::DeleteCandy(std::vector<Candy*> deleteCandy)
+{
+	if (deleteCandy.size() < 3)
+		return;
+	std::vector<Candy*>form;
+	int finish = 0;
+	for (int i = 0; i < deleteCandy.size();i++) {
+		if (form.size() < 2)
+			form.push_back(deleteCandy[i]);
+		else if (form[form.size() - 1]->GetPosition().x == form[form.size() - 2]->GetPosition().x) {
+			if (deleteCandy[i]->GetPosition().x == form[form.size() -1]->GetPosition().x) {
+				form.push_back(deleteCandy[i]);
+			}
+			else 
+			{
+				finish = i;
+				break;
+			}
+		}
+		else if (form[form.size() -1]->GetPosition().y == form[form.size() -2]->GetPosition().y) {
+			if (deleteCandy[i]->GetPosition().y == form[form.size() -1]->GetPosition().y) {
+				form.push_back(deleteCandy[i]);
+			}
+			else
+			{
+				finish = i;
+				break;
+			}
+		}
+	}
+	for (int i = finish; i < deleteCandy.size(); i++) {
+		deleteCandy[i]->checked = false;
+	}
+	if(form.size() >= 3)
+	{
+		for (Candy* candy : form) {
+			for (Candy*& mapCandy : map->map) {
+				if (mapCandy == candy)
+					mapCandy = nullptr;
+			}
+			owner->GetScene()->DestroyObject(candy);
+		}
+	}
+	else {
+		for (Candy* candy : form) {
+			candy->checked = false;
+		}
+	}
 }
 
 void Match3::MapUpdater::PrintCandyDelete(std::vector<Candy*> candies)

@@ -18,7 +18,7 @@ void GameObject::Start() {
 	}
 }
 void GameObject::Update(TimeModule* timeModule) {
-	//std::cout <<'"' << name <<"\" , ";
+	//std::cout << components.size() << ", ";
 	for (Component* component : components)
 	{
 		component->Update(timeModule);

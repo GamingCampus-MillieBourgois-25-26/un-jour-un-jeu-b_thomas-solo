@@ -68,7 +68,6 @@ void Scene::AddGameObject(GameObject* gameObject, int calque)
 	}
 	gameObject->SetCalque(calque);
 	gameObject->SetScene(this);
-	gameObject->Awake();
 	pendingObjects.push_back(gameObject);
 }
 
@@ -93,6 +92,10 @@ void Scene::FlushPending()
 	for(GameObject* object : pendingObjects)
 	{
 		gameObjects[object->GetCalque()].push_back(object);
+	}
+	for(GameObject* object : pendingObjects)
+	{
+		object->Awake();
 		object->Start();
 	}
 	pendingObjects.clear();

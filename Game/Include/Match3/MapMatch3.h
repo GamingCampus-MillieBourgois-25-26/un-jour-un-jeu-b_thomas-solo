@@ -2,9 +2,9 @@
 #include "GameObject.h"
 #include "Component.h"
 #include <InputModule.h>
-#include "Candy.h"
 namespace Match3
 {
+	class Candy;
 	class MapMatch3 : public GameObject
 	{
 	public:
@@ -12,6 +12,7 @@ namespace Match3
 		int mapWidth = 10;
 		int mapHeight = 10;
 		int mapTileSize = 50;
+		bool nextFrame = true;
 		MapMatch3();
 		void InitMap();
 		void Awake()override;

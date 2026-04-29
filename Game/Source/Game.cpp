@@ -42,7 +42,7 @@ int main()
     sceneModule->AddScene<Match3::Match3>("Match3");
     sceneModule->AddScene<TopDown::TopDown>("TopDown");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("TopDown"));
+    sceneModule->SetMain(sceneModule->GetScene("SceneMenu"));
 
     engine->Start();
     engine->Run();

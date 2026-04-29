@@ -28,9 +28,9 @@ void CollisionBox::Update(TimeModule* timeModule) {
 
 void CollisionBox::Render(WindowModule* windowModule)
 {
-	sf::RectangleShape rectangle(rect.size);
+	/*sf::RectangleShape rectangle(rect.size);
 	rectangle.setPosition(rect.position);
-	windowModule->GetWindow()->draw(rectangle);
+	windowModule->GetWindow()->draw(rectangle);*/
 }
 
 void CollisionBox::Destroy()

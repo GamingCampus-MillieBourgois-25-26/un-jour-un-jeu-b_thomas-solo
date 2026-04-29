@@ -6,6 +6,7 @@
 #include <Include/TowerDefense/TowerDefense.h>
 #include <Include/Clicker/Clicker.h>
 #include <Include/Match3/Match3.h>
+#include <Include/Top-Down/TopDown.h>
 
 
 int main()
@@ -30,13 +31,18 @@ int main()
     ressourceModule->AddTexture("TowerDefenseLourd", "Assets/TowerDefense/towerDefense_tile270.png");
     ressourceModule->AddTexture("TowerDefenseTropLourd", "Assets/TowerDefense/towerDefense_tile271.png");
 
+    ressourceModule->AddTexture("TopDownBarrel", "Assets/Top-Down/barrelGreen.png");
+    ressourceModule->AddTexture("TopDownFrame", "Assets/Top-Down/tankGreen.png");
+    ressourceModule->AddTexture("TopDownBullet", "Assets/Top-Down/bulletGreen.png");
+
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");
     sceneModule->AddScene<TowerDefense::TowerDefense>("TowerDefense");
     sceneModule->AddScene<Clicker::Clicker>("Clicker");
     sceneModule->AddScene<Match3::Match3>("Match3");
+    sceneModule->AddScene<TopDown::TopDown>("TopDown");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("Match3"));
+    sceneModule->SetMain(sceneModule->GetScene("TopDown"));
 
     engine->Start();
     engine->Run();

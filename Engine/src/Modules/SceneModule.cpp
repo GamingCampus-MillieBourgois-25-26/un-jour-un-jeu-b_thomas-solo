@@ -1,7 +1,5 @@
 #include "Modules/SceneModule.h"
 
-#include <ranges>
-
 #include "ModuleManager.h"
 #include "Modules/TimeModule.h"
 #include "Modules/WindowModule.h"
@@ -140,6 +138,23 @@ void SceneModule::Present()
     {
         scene->Present();
     }
+
+    DeleteMarkedScenes();
+}
+
+Scene* SceneModule::SetSceneById(const std::type_index& _type_index)
+{
+    const std::type_index scene_type_index(_type_index);
+
+    if (const auto it = sceneCreationFunctions.find(scene_type_index); it != sceneCreationFunctions.end())
+    {
+        const std::function<Scene*()>& scene_creation_func = it->second;
+        return scene_creation_func();
+    }
+
+    Logger::Log(ELogLevel::Warning, "Scene with type {} not found.", _type_index.name());
+
+    return nullptr;
 }
 
 Scene* SceneModule::GetSceneByName(const std::string& _scene_name) const
@@ -181,6 +196,12 @@ void SceneModule::DeleteAllScenes() const
     {
         scene->MarkForDeletion();
     }
+}
+
+std::vector<std::type_index> SceneModule::GetRegisteredSceneTypes() const
+{
+    auto type_indices = std::views::keys(sceneCreationFunctions);
+    return std::vector(type_indices.begin(), type_indices.end());
 }
 
 void SceneModule::DeleteMarkedScenes()

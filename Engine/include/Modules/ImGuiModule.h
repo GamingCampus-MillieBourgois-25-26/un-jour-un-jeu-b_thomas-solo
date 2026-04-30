@@ -24,6 +24,8 @@ public:
 
     void DisplayDebugWindow();
     void DisplayScenesList();
+    void DisplayRegisteredSceneList() const;
+
     void DisplayGameObjectsList(const Scene& _scene);
     void DisplayGameObjectItem(const GameObject& _game_object);
 

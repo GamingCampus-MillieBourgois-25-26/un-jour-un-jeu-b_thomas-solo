@@ -3,12 +3,13 @@
 template <typename T>
 Scene* SceneModule::SetScene()
 {
-    nextFrameScene = CreateScene<T>();
+    DeleteAllScenes();
+    nextFrameScene = CreateSceneAdditive<T>();
     return nextFrameScene;
 }
 
 template <typename SceneType> requires IsScene<SceneType>
-SceneType* SceneModule::CreateScene()
+SceneType* SceneModule::CreateSceneAdditive()
 {
     auto scene = std::make_unique<SceneType>();
     SceneType* raw_ptr = scene.get();
@@ -26,7 +27,7 @@ Scene* SceneModule::GetSceneByType() const
 {
     for (const auto& scene : scenes)
     {
-        if (dynamic_cast<SceneType*>(scene))
+        if (dynamic_cast<SceneType*>(scene.get()))
         {
             return scene.get();
         }
@@ -35,4 +36,12 @@ Scene* SceneModule::GetSceneByType() const
     Logger::Log(ELogLevel::Warning, "SceneModule::GetSceneByType - No scene of type " + std::string(typeid(SceneType).name()) + " found.");
 
     return nullptr;
+}
+
+template<typename SceneType> requires IsScene<SceneType>
+void SceneModule::RegisterSceneCreationFunction()
+{
+    const std::type_index scene_type = typeid(SceneType);
+    std::function<Scene*()> scene_creation_function = [this]() { return SetScene<SceneType>(); };
+    sceneCreationFunctions.try_emplace(scene_type, scene_creation_function);
 }

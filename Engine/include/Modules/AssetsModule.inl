@@ -12,8 +12,6 @@ AssetType* AssetsModule::LoadAsset(const std::filesystem::path& _path, CtrParams
 
     if (const AssetIterator it = assets.find(path_string); it != assets.end())
     {
-        Logger::Log(ELogLevel::Warning, "Asset already loaded, use GetAsset() next time : {}", path_string);
-
         return dynamic_cast<AssetType*>(it->second.get());
     }
 

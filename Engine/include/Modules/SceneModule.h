@@ -1,12 +1,14 @@
 #pragma once
 
+#include <functional>
 #include <memory>
+#include <typeindex>
+#include <unordered_map>
 #include <vector>
 
 #include "Core/Module.h"
 #include "Core/Scene.h"
 
-// Forward declarations — only raw pointers are stored as members
 class TimeModule;
 class WindowModule;
 
@@ -31,8 +33,10 @@ public:
     template <typename T>
     Scene* SetScene();
 
+    Scene* SetSceneById(const std::type_index& _type_index);
+
     template <typename SceneType> requires IsScene<SceneType>
-    SceneType* CreateScene();
+    SceneType* CreateSceneAdditive();
 
     template <typename SceneType> requires IsScene<SceneType>
     Scene* GetSceneByType() const;
@@ -43,10 +47,17 @@ public:
     bool DeleteSceneByName(const std::string& _scene_name) const;
     void DeleteAllScenes() const;
 
+    template <typename SceneType> requires IsScene<SceneType>
+    void RegisterSceneCreationFunction();
+
+    std::vector<std::type_index> GetRegisteredSceneTypes() const;
+
 private:
     void DeleteMarkedScenes();
 
     std::vector<std::unique_ptr<Scene>> scenes;
+
+    std::unordered_map<std::type_index, std::function<Scene*()>> sceneCreationFunctions;
 
     WindowModule* windowModule = nullptr;
     TimeModule* timeModule = nullptr;

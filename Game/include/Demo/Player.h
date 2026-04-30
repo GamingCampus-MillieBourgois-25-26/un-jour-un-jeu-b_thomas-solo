@@ -1,5 +1,9 @@
 #pragma once
 
+#include "GameObject.h"
+#include "Scene.h"
+#include "SquareCollider.h"
+
 #include "Core/Component.h"
 #include "Modules/InputModule.h"
 
@@ -36,6 +40,11 @@ namespace Demo
             {
                 Engine::GetInstance()->RequestQuit();
             }
+
+            const SquareCollider* square_collider = GetOwner()->GetComponent<SquareCollider>();
+            const Scene* scene = GetOwner()->GetScene();
+            GameObject* object = scene->FindGameObject("SFML Logo");
+            const SquareCollider* other_square_collider = object->GetComponent<SquareCollider>();
         }
 
         float speed = 100.0f;

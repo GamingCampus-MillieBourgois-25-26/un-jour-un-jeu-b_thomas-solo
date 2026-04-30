@@ -8,6 +8,8 @@ int main(const int _argc, const char** _argv)
 
     engine->Init(_argc, _argv);
 
+    engine->GetModuleManager()->GetModule<SceneModule>()->RegisterSceneCreationFunction<Demo::DemoScene>();
+
     engine->GetModuleManager()->GetModule<SceneModule>()->SetScene<Demo::DemoScene>();
 
     engine->Run();

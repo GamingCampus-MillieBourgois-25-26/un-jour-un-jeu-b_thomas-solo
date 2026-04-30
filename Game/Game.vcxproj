@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Top-Down\Smoke.cpp" />
     <ClCompile Include="Source\Top-Down\EnemyTopDown.cpp" />
     <ClCompile Include="Source\Top-Down\ProjectileTopDown.cpp" />
     <ClCompile Include="Source\Top-Down\PlayerTopDown.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Source\Text.cpp" />
     <ClCompile Include="Source\Clicker\UpgradeAutoUp.cpp" />
     <ClCompile Include="Source\Top-Down\TopDown.cpp" />
+    <ClCompile Include="Source\Top-Down\VictoryPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -189,6 +191,8 @@
     <ClInclude Include="Include\Top-Down\TopDown.h" />
     <ClInclude Include="Include\Top-Down\PlayerTopDown.h" />
     <ClInclude Include="Include\Top-Down\ProjectileTopDown.h" />
+    <ClInclude Include="Include\Top-Down\VictoryPoint.h" />
+    <ClInclude Include="Include\Top-Down\Smoke.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

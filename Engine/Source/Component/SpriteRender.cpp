@@ -3,16 +3,15 @@
 #include "Include/Component/SpriteRender.h"
 
 void SpriteRender::LoadTexture(std::string path) {
-	if (!tex.loadFromFile(path)) {
+	if (!tex->loadFromFile(path)) {
 		std::cout << "error loading" << std::endl;
 	}
 
-	sprite.setTexture(tex,true);
+	sprite.setTexture(*tex,true);
 }
 
-SpriteRender::SpriteRender(sf::Texture* texture, sf::IntRect textureRect):sprite(tex)
+SpriteRender::SpriteRender(sf::Texture* texture, sf::IntRect textureRect):tex(texture), sprite(*tex)
 {
-	tex = *texture;
 	SetTextureRect(textureRect);
 }
 
@@ -28,8 +27,8 @@ void SpriteRender::Update(TimeModule* timeModule) {
 }
 
 void SpriteRender::Repeated() {
-	tex.setRepeated(true);
-	sprite.setTexture(tex, true);
+	tex->setRepeated(true);
+	sprite.setTexture(*tex, true);
 }
 
 void SpriteRender::SetTextureRect(sf::IntRect textureRect)

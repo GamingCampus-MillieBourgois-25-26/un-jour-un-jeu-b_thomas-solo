@@ -8,7 +8,7 @@ class SpriteRender : public Component
 	ka texture peut etre creer ici avec son chemin relatif ou
 	utiliser avec le ressourceModule*/
 public:
-	sf::Texture tex;
+	sf::Texture *tex;
 	sf::Sprite sprite;
 	SpriteRender(sf::Texture* texture, sf::IntRect textureRect);
 	void LoadTexture(std::string path);

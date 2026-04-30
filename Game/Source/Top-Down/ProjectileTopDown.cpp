@@ -2,13 +2,17 @@
 #include <SpriteRender.h>
 #include <RessourceModule.h>
 #include <Engine.h>
+#include <CollisionBox.h>
 
-TopDown::Projectile::Projectile()
+TopDown::Projectile::Projectile(sf::Texture* tex, GameObject* _owner): owner(_owner)
 {
 	RessourceModule* ressource = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	CreateComponent<ProjectileMouvement>();
-	SpriteRender* sprite = CreateComponent<SpriteRender>(ressource->GetTexture("TopDownBullet"), sf::IntRect({ 0,0 }, { 12,26 }));
+	SpriteRender* sprite = CreateComponent<SpriteRender>(tex, sf::IntRect({ 0,0 }, static_cast<sf::Vector2i>(tex->getSize())));
 	sprite->offsetRotation = 90;
+	CollisionBox* box = CreateComponent<CollisionBox>();
+	box->Init({ 10,10 });
+	SetId(3);
 }
 
 void TopDown::ProjectileMouvement::Start()

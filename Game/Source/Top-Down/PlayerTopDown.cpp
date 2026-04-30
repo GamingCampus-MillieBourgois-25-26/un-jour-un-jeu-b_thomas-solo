@@ -3,46 +3,15 @@
 #include <Engine.h>
 #include <Include/Top-Down/ProjectileTopDown.h>
 
-TopDown::Player::Player()
+TopDown::Player::Player(RessourceModule* ressourceModule): Tank(ressourceModule->GetTexture("TopDownPlayerBarrel"), ressourceModule->GetTexture("TopDownPlayerFrame"))
 {
-	CreateComponent<PlayerRender>();
 	CreateComponent<PlayerInput>();
-}
-
-TopDown::PlayerRender::PlayerRender()
-{
-	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
-	barrel = new SpriteRender(ressourceModule->GetTexture("TopDownBarrel"),sf::IntRect({0,0},{16,50}));
-	barrel->sprite.setOrigin({ 8, 0 });
-	barrel->offsetRotation = 90;
-	frame = new SpriteRender(ressourceModule->GetTexture("TopDownFrame"), sf::IntRect({ 0,0 }, { 75,70 }));
-	frame->offsetRotation = 90;
-}
-
-void TopDown::PlayerRender::Start()
-{
-	player = static_cast<Player*>(owner);
-	barrel->owner = owner;
-	frame->owner = owner;
-}
-
-void TopDown::PlayerRender::Update(TimeModule* timeModule)
-{
-	barrel->offsetRotation = player->rotationBarrel - 90;
-	barrel->Update(timeModule);
-	frame->Update(timeModule);
-}
-
-void TopDown::PlayerRender::Render(WindowModule* windowModule)
-{
-	frame->Render(windowModule);
-	barrel->Render(windowModule);
-}
-
-void TopDown::PlayerRender::Destroy()
-{
-	delete barrel;
-	delete frame;
+	CollisionBoxPlayer* box = CreateComponent<CollisionBoxPlayer>();
+	box->Init({ 40,40 });
+	speed = 90;
+	rotationSpeed = 100;
+	rotationBarrelSpeed = 180;
+	
 }
 
 void TopDown::PlayerInput::Start()
@@ -79,6 +48,12 @@ void TopDown::PlayerInput::Update(TimeModule* timeModule)
 		if (player->rotationBarrel >= 360)
 			player->rotationBarrel -= 360;
 	}
+
+	sf::Vector2f pos = owner->GetPosition();
+	pos.x = std::clamp(pos.x, 0.f, 800.f);
+	pos.y = std::clamp(pos.y, 0.f, 800.f);
+	owner->SetPosition(pos);
+
 	RotateBarrel(player->rotationBarrelSpeed * timeModule->GetDeltaTime());
 }
 
@@ -119,8 +94,21 @@ void TopDown::PlayerInput::RotateBarrel(float speedRotation)
 
 void TopDown::PlayerInput::Shoot()
 {
-	Projectile* projectile = new Projectile();
+	RessourceModule* ressource = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
+	Projectile* projectile = new Projectile(ressource->GetTexture("TopDownPlayerBullet"), player);
 	projectile->SetPosition(owner->GetPosition());
 	projectile->SetRotation(owner->GetRotation() + player->rotationBarrel);
 	owner->GetScene()->AddGameObject(projectile, owner->GetCalque());
 }
+
+void TopDown::CollisionBoxPlayer::Collide(CollisionBox* other) {
+	if (other->owner->GetId() == 3) {
+		Projectile* projectile = static_cast<Projectile*>(other->owner);
+		if (projectile->owner->GetId() == 2) {
+			std::cout << "degat" << std::endl;
+			projectile->GetScene()->DestroyObject(projectile);
+		}
+	}
+}
+
+

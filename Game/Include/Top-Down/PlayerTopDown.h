@@ -3,31 +3,17 @@
 #include "Component.h"
 #include <SpriteRender.h>
 #include <InputModule.h>
+#include "Include/Top-Down/TopDown.h"
+#include <RessourceModule.h>
+#include "CollisionBox.h"
 namespace TopDown
 {
-	class Player : public GameObject
+	class Player : public Tank
 	{
 	public:
-		float rotationBarrel = 0;
-		float speed = 50;
-		float rotationSpeed = 60;
-		float rotationBarrelSpeed = 80;
-		float reloadTime = 0;
-		float reloadTimeMax = 3;
-		Player();
+		Player(RessourceModule* ressourceModule);
 	};
-	class PlayerRender : public Component {
-	public:
-		Player* player = nullptr;
-		SpriteRender* barrel;
-		SpriteRender* frame;
-		PlayerRender();
-		void Start()override;
-		void Update(TimeModule* timeModule)override;
-		void Render(WindowModule* windowModule)override;
-		void Destroy()override;
-
-	};
+	
 	class PlayerInput : public Component {
 	public:
 		InputModule* input = nullptr;
@@ -38,6 +24,10 @@ namespace TopDown
 		void MoveForward(float speed);
 		void RotateBarrel(float speedRotation);
 		void Shoot();
+	};
+	class CollisionBoxPlayer : public CollisionBox {
+	public:
+		void Collide(CollisionBox* other)override;
 	};
 }
 

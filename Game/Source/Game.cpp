@@ -31,9 +31,15 @@ int main()
     ressourceModule->AddTexture("TowerDefenseLourd", "Assets/TowerDefense/towerDefense_tile270.png");
     ressourceModule->AddTexture("TowerDefenseTropLourd", "Assets/TowerDefense/towerDefense_tile271.png");
 
-    ressourceModule->AddTexture("TopDownBarrel", "Assets/Top-Down/barrelGreen.png");
-    ressourceModule->AddTexture("TopDownFrame", "Assets/Top-Down/tankGreen.png");
-    ressourceModule->AddTexture("TopDownBullet", "Assets/Top-Down/bulletGreen.png");
+    ressourceModule->AddTexture("TopDownPlayerBarrel", "Assets/Top-Down/barrelGreen.png");
+    ressourceModule->AddTexture("TopDownPlayerFrame", "Assets/Top-Down/tankGreen.png");
+    ressourceModule->AddTexture("TopDownPlayerBullet", "Assets/Top-Down/bulletGreen.png");
+    ressourceModule->AddTexture("TopDownEnemyBarrel", "Assets/Top-Down/barrelRed.png");
+    ressourceModule->AddTexture("TopDownEnemyFrame", "Assets/Top-Down/tankRed.png");
+    ressourceModule->AddTexture("TopDownEnemyBullet", "Assets/Top-Down/bulletRed.png");
+    ressourceModule->AddTexture("TopDownDestroyBarrel", "Assets/Top-Down/barrelBlack.png");
+    ressourceModule->AddTexture("TopDownDestroyFrame", "Assets/Top-Down/tankBlack.png");
+    ressourceModule->AddTexture("smoke", "Assets/Top-Down/smokeGrey5.png");
 
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");
@@ -42,7 +48,7 @@ int main()
     sceneModule->AddScene<Match3::Match3>("Match3");
     sceneModule->AddScene<TopDown::TopDown>("TopDown");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("SceneMenu"));
+    sceneModule->SetMain(sceneModule->GetScene("TopDown"));
 
     engine->Start();
     engine->Run();

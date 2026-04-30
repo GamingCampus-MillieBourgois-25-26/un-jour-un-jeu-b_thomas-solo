@@ -7,7 +7,8 @@ namespace TopDown
 	{
 	public:
 		float bulletSpeed = 300;
-		Projectile();
+		GameObject* owner = nullptr;
+		Projectile(sf::Texture* tex, GameObject* _owner);
 	};
 	class ProjectileMouvement : public Component {
 	public:

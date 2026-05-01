@@ -6,18 +6,22 @@
 #include "Include/Top-Down/Smoke.h"
 
 
-TopDown::Enemy::Enemy(RessourceModule* ressource): Tank(ressource->GetTexture("TopDownEnemyBarrel"), ressource->GetTexture("TopDownEnemyFrame"))
+TopDown::Enemy::Enemy(sf::Texture* texBarrel, sf::Texture* texFrame): Tank(texBarrel, texFrame)
+{
+}
+
+TopDown::EnemyBase::EnemyBase(RessourceModule* ressourceModule): Enemy(ressourceModule->GetTexture("TopDownBarrelRed"), ressourceModule->GetTexture("TopDownFrameRed"))
 {
 	speed = 55;
 	rotationBarrelSpeed = 40;
-	CreateComponent<EnemyMovement>();
+	CreateComponent<EnemyBaseAi>();
 	EnemyCollision* box = CreateComponent<EnemyCollision>();
 	box->Init({ 40,40 });
 
 	FSM* fsm = CreateComponent<FSM>();
 	std::vector<sf::Vector2f> target({ sf::Vector2f(100.f, 100.f), sf::Vector2f(300.f, 300.f) });
 	Patrol* patrol = new Patrol(target);
-	patrol->condition = [](GameObject* owner) {
+	patrol->condition = [](GameObject* owner, State* currentState) {
 		sf::Vector2f playerPos = owner->GetScene()->GetGameObject(1)->GetPosition();
 		sf::Vector2f delta = playerPos - owner->GetPosition();
 		float distance = sqrt(delta.x * delta.x + delta.y * delta.y);
@@ -27,7 +31,7 @@ TopDown::Enemy::Enemy(RessourceModule* ressource): Tank(ressource->GetTexture("T
 			return false;
 		};
 	Chase* chase = new Chase();
-	chase->condition = [](GameObject* owner) {
+	chase->condition = [](GameObject* owner, State* currentState) {
 		sf::Vector2f playerPos = owner->GetScene()->GetGameObject(1)->GetPosition();
 		sf::Vector2f delta = playerPos - owner->GetPosition();
 		float distance = sqrt(delta.x * delta.x + delta.y * delta.y);
@@ -37,13 +41,39 @@ TopDown::Enemy::Enemy(RessourceModule* ressource): Tank(ressource->GetTexture("T
 			return false;
 		};
 	DestroyState* destroy = new DestroyState();
-	destroy->condition = [](GameObject* owner) {return false; };
+	destroy->condition = [](GameObject* owner, State* currentState) {return false; };
 	fsm->AddState(patrol, chase);
 	fsm->AddState(chase, patrol);
 	fsm->AddState(destroy, destroy);
 	fsm->Init(patrol);
 }
 
+TopDown::EnemySniper::EnemySniper(RessourceModule* ressourceModule, sf::Vector2f hideSpot, sf::Vector2f snipeSpot) : Enemy(ressourceModule->GetTexture("TopDownBarrelBlue"), ressourceModule->GetTexture("TopDownFrameBlue"))
+{
+	CreateComponent<EnemySniperAi>();
+	EnemyCollision* box = CreateComponent<EnemyCollision>();
+	box->Init({ 40, 40 });
+
+	FSM* fsm = CreateComponent<FSM>();
+	Hide* hide = new Hide(hideSpot, 10);
+	hide->condition = [](GameObject* owner, State* currentState) {
+		Hide* hide = static_cast<Hide*>(currentState);
+		return hide->hideTimer <= 0;
+		};
+	Snipe* snipe = new Snipe(snipeSpot, 15);
+	snipe->condition = [](GameObject* owner, State* currentState) {
+		Snipe* snipe = static_cast<Snipe*>(currentState);
+		return snipe->shootDelay <= 0;
+		};
+	DestroyState* destroy = new DestroyState();
+	destroy->condition = [](GameObject* owner, State* currentState) {return false; };
+	fsm->AddState(hide, snipe);
+	fsm->AddState(snipe, hide);
+	fsm->AddState(destroy, destroy);
+	fsm->Init(hide);
+
+
+}
 
 void TopDown::FSM::AddState(State* state, State* nextState)
 {
@@ -87,7 +117,7 @@ void TopDown::FSM::Destroy()
 
 bool TopDown::State::ChangeState()
 {
-	return condition(owner);
+	return condition(owner, this);
 }
 
 TopDown::Patrol::Patrol(std::vector<sf::Vector2f> _targets): targets(_targets)
@@ -110,26 +140,27 @@ void TopDown::Patrol::End()
 	std::cout << "Patrol End" << std::endl;
 }
 
-void TopDown::EnemyMovement::Start()
+void TopDown::EnemyBaseAi::Start()
 {
 	enemy = static_cast<Enemy*>(owner);
 }
 
-void TopDown::EnemyMovement::Update(TimeModule* timeModule)
+void TopDown::EnemyBaseAi::Update(TimeModule* timeModule)
 {
 	FSM* fsm = owner->GetComponent<FSM>();
 	
 	if (Patrol* state = dynamic_cast<Patrol*>(fsm->currentState)) {
-		Move(state->targets[state->currentTarget], enemy->speed * timeModule->GetDeltaTime(), false);
-		RotateBarrel(state->targets[state->currentTarget], enemy->rotationBarrelSpeed * timeModule->GetDeltaTime());
+		enemy->MoveForward(state->targets[state->currentTarget], enemy->speed * timeModule->GetDeltaTime(), false);
+		enemy->RotateBarrel(state->targets[state->currentTarget], enemy->rotationBarrelSpeed * timeModule->GetDeltaTime());
 	}
 	else if (Chase* state = dynamic_cast<Chase*>(fsm->currentState)) {
-		Move(state->target, enemy->speed * timeModule->GetDeltaTime(), true);
-		RotateBarrel(enemy->GetScene()->GetGameObject(1)->GetPosition(), enemy->rotationBarrelSpeed);
+		enemy->MoveForward(state->target, enemy->speed * timeModule->GetDeltaTime(), true);
+		enemy->RotateBarrel(enemy->GetScene()->GetGameObject(1)->GetPosition(), enemy->rotationBarrelSpeed * timeModule->GetDeltaTime());
 		enemy->reloadTime -= timeModule->GetDeltaTime();
 		if (enemy->reloadTime <= 0) {
 			enemy->reloadTime = enemy->reloadTimeMax;
-			Shoot();
+			RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
+			enemy->Shoot(ressourceModule->GetTexture("TopDownBulletRed"));
 		}
 	}
 	else if (DestroyState* state = dynamic_cast<DestroyState*>(fsm->currentState)) {
@@ -143,17 +174,45 @@ void TopDown::EnemyMovement::Update(TimeModule* timeModule)
 	}
 	sf::Vector2f pos = owner->GetPosition();
 	pos.x = std::clamp(pos.x, 0.f, 800.f);
-	pos.y = std::clamp(pos.y, 0.f, 800.f);
 	owner->SetPosition(pos);
 }
-void TopDown::EnemyMovement::Move(sf::Vector2f target, float speed, bool rotate) {
-	sf::Vector2f delta = target - owner->GetPosition();
+void TopDown::EnemySniperAi::Start()
+{
+	enemy = static_cast<EnemySniper*>(owner);
+}
+void TopDown::EnemySniperAi::Update(TimeModule* timeModule)
+{
+	FSM* fsm = enemy->GetComponent<FSM>();
+	if (Hide* state = dynamic_cast<Hide*>(fsm->currentState)) {
+		enemy->MoveForward(state->hideSpot, enemy->speed * timeModule->GetDeltaTime(), false);
+	}
+	else if (Snipe* state = dynamic_cast<Snipe*>(fsm->currentState)) {
+		enemy->MoveForward(state->snipeSpot, enemy->speed * timeModule->GetDeltaTime(), false);
+		enemy->RotateBarrel(enemy->GetScene()->GetGameObject(1)->GetPosition(),enemy->rotationBarrelSpeed * timeModule->GetDeltaTime());
+		if (state->shootDelay <= 2 && state->shooted == false) {
+			state->shooted = true;
+			RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
+			enemy->Shoot(ressourceModule->GetTexture("TopDownBulletBlue"));
+		}
+	}
+	else if (DestroyState* state = dynamic_cast<DestroyState*>(fsm->currentState)) {
+		if (state->smokeTimer <= 0) {
+			state->smokeTimer = state->smokeTimerMax;
+			Smoke* smoke = new Smoke();
+			smoke->SetPosition(owner->GetPosition());
+			smoke->SetScale(0.5, 0.5);
+			owner->GetScene()->AddGameObject(smoke, 1);
+		}
+	}
+}
+void TopDown::Enemy::MoveForward(sf::Vector2f target, float speed, bool rotate) {
+	sf::Vector2f delta = target - GetPosition();
 	float distance = sqrt(delta.x * delta.x + delta.y * delta.y);
 	if (distance != 0)
 	{
 		sf::Vector2f direction = delta / distance;
 		float angle = atan2(direction.y, direction.x) * 180 / 3.141;
-		float angleDiff = owner->GetRotation() - angle;
+		float angleDiff = GetRotation() - angle;
 		while (angleDiff >= 180 || angleDiff < -180) {
 			if (angleDiff < -180)
 				angleDiff += 360;
@@ -162,33 +221,33 @@ void TopDown::EnemyMovement::Move(sf::Vector2f target, float speed, bool rotate)
 		}
 
 		if (abs(angleDiff) <= speed)
-			owner->SetRotation(angle);
+			SetRotation(angle);
 		else {
 			if (angleDiff < 0)
-				owner->Rotate(speed);
+				Rotate(speed);
 			else
-				owner->Rotate(-speed);
+				Rotate(-speed);
 
 		}
 		if(angleDiff == 0 || rotate)
 		{
-			float ownerAngle = owner->GetRotation() * 3.141 / 180;
+			float ownerAngle = GetRotation() * 3.141 / 180;
 			direction = { cos(ownerAngle), sin(ownerAngle) };
 			if (distance > speed)
-				owner->Move(direction * speed);
+				Move(direction * speed);
 			else
-				owner->SetPosition(target);
+				SetPosition(target);
 		}
 	}
 }
-void TopDown::EnemyMovement::RotateBarrel(sf::Vector2f target, float speedRotation) {
-	sf::Vector2f delta = target - owner->GetPosition();
+void TopDown::Enemy::RotateBarrel(sf::Vector2f target, float speedRotation) {
+	sf::Vector2f delta = target - GetPosition();
 	float distance = sqrt(delta.x * delta.x + delta.y * delta.y);
 	if (distance != 0)
 	{
 		sf::Vector2f direction = delta / distance;
 		float angle = atan2(direction.y, direction.x) * 180 / 3.141;
-		float rotation = enemy->rotationBarrel + owner->GetRotation();
+		float rotation = rotationBarrel + GetRotation();
 		float angleDiff = rotation - angle;
 		while (angleDiff >= 180 || angleDiff < -180) {
 			if (angleDiff < -180)
@@ -198,22 +257,22 @@ void TopDown::EnemyMovement::RotateBarrel(sf::Vector2f target, float speedRotati
 		}
 
 		if (abs(angleDiff) <= speedRotation)
-			enemy->rotationBarrel = angle - owner->GetRotation();
+			rotationBarrel = angle - GetRotation();
 		else {
 			if (angleDiff < 0)
-				enemy->rotationBarrel += speedRotation;
+				rotationBarrel += speedRotation;
 			else
-				enemy->rotationBarrel -= speedRotation;
+				rotationBarrel -= speedRotation;
 
 		}
 	}
 }
-void TopDown::EnemyMovement::Shoot() {
+void TopDown::Enemy::Shoot(sf::Texture* tex) {
 	RessourceModule* ressource = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
-	Projectile* projectile = new Projectile(ressource->GetTexture("TopDownEnemyBullet"), enemy);
-	projectile->SetPosition(owner->GetPosition());
-	projectile->SetRotation(owner->GetRotation() + enemy->rotationBarrel + rand() % 40 - 20);
-	owner->GetScene()->AddGameObject(projectile, owner->GetCalque());
+	Projectile* projectile = new Projectile(tex, this);
+	projectile->SetPosition(GetPosition());
+	projectile->SetRotation(GetRotation() + rotationBarrel + rand() % 40 - 20);
+	GetScene()->AddGameObject(projectile, GetCalque());
 }
 
 void TopDown::Chase::Start()
@@ -282,4 +341,39 @@ void TopDown::DestroyState::Start()
 void TopDown::DestroyState::Update(TimeModule* timeModule)
 {
 	smokeTimer -= timeModule->GetDeltaTime();
+}
+
+TopDown::Hide::Hide(sf::Vector2f _hideSpot, float time):hideSpot(_hideSpot), hideTimerMax(time)
+{
+}
+
+void TopDown::Hide::Start()
+{
+	std::cout << "Hide : Start";
+	hideTimer = hideTimerMax;
+}
+
+void TopDown::Hide::Update(TimeModule* timeModule)
+{
+	hideTimer -= timeModule->GetDeltaTime();
+}
+
+void TopDown::Hide::End()
+{
+	std::cout << "Hide : End";
+}
+
+TopDown::Snipe::Snipe(sf::Vector2f _snipeSpot, float time):snipeSpot(_snipeSpot), shootDelayMax(time)
+{
+}
+
+void TopDown::Snipe::Start()
+{
+	shootDelay = shootDelayMax;
+	shooted = false;
+}
+
+void TopDown::Snipe::Update(TimeModule* timeModule)
+{
+	shootDelay -= timeModule->GetDeltaTime();
 }

@@ -166,6 +166,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="Include\BulletHell\EnemyBulletHell.inl" />
+    <None Include="Include\Top-Down\EnemyTopDown.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Top-Down\EnemyTopDown.h" />

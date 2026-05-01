@@ -51,7 +51,6 @@ void TopDown::PlayerInput::Update(TimeModule* timeModule)
 
 	sf::Vector2f pos = owner->GetPosition();
 	pos.x = std::clamp(pos.x, 0.f, 800.f);
-	pos.y = std::clamp(pos.y, 0.f, 800.f);
 	owner->SetPosition(pos);
 
 	RotateBarrel(player->rotationBarrelSpeed * timeModule->GetDeltaTime());
@@ -109,6 +108,30 @@ void TopDown::CollisionBoxPlayer::Collide(CollisionBox* other) {
 			projectile->GetScene()->DestroyObject(projectile);
 		}
 	}
+}
+TopDown::Camera::Camera(sf::FloatRect rect, sf::Vector2f _clampX, sf::Vector2f _clampY): view(rect), clampX(_clampX), clampY(_clampY)
+{
+}
+
+
+
+void TopDown::Camera::Update(TimeModule* timeModule)
+{
+	sf::Vector2f cameraPos = owner->GetPosition();
+	cameraPos.x = std::clamp(cameraPos.x, clampX.x, clampX.y);
+	cameraPos.y = std::clamp(cameraPos.y, clampY.x, clampY.y);
+	view.setCenter(cameraPos);
+}
+
+void TopDown::Camera::Render(WindowModule* windowModule)
+{
+	if (isUseing)
+		windowModule->GetWindow()->setView(view);
+}
+
+void TopDown::Camera::UseView()
+{
+	isUseing = true;
 }
 
 

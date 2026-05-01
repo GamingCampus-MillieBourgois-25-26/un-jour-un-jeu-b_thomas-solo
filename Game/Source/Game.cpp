@@ -34,9 +34,12 @@ int main()
     ressourceModule->AddTexture("TopDownPlayerBarrel", "Assets/Top-Down/barrelGreen.png");
     ressourceModule->AddTexture("TopDownPlayerFrame", "Assets/Top-Down/tankGreen.png");
     ressourceModule->AddTexture("TopDownPlayerBullet", "Assets/Top-Down/bulletGreen.png");
-    ressourceModule->AddTexture("TopDownEnemyBarrel", "Assets/Top-Down/barrelRed.png");
-    ressourceModule->AddTexture("TopDownEnemyFrame", "Assets/Top-Down/tankRed.png");
-    ressourceModule->AddTexture("TopDownEnemyBullet", "Assets/Top-Down/bulletRed.png");
+    ressourceModule->AddTexture("TopDownBarrelRed", "Assets/Top-Down/barrelRed.png");
+    ressourceModule->AddTexture("TopDownFrameRed", "Assets/Top-Down/tankRed.png");
+    ressourceModule->AddTexture("TopDownBulletRed", "Assets/Top-Down/bulletRed.png");
+    ressourceModule->AddTexture("TopDownBarrelBlue", "Assets/Top-Down/barrelBlue.png");
+    ressourceModule->AddTexture("TopDownFrameBlue", "Assets/Top-Down/tankBlue.png");
+    ressourceModule->AddTexture("TopDownBulletBlue", "Assets/Top-Down/bulletBlue.png");
     ressourceModule->AddTexture("TopDownDestroyBarrel", "Assets/Top-Down/barrelBlack.png");
     ressourceModule->AddTexture("TopDownDestroyFrame", "Assets/Top-Down/tankBlack.png");
     ressourceModule->AddTexture("smoke", "Assets/Top-Down/smokeGrey5.png");

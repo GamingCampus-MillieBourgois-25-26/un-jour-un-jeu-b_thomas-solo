@@ -9,15 +9,17 @@ TopDown::TopDown::TopDown()
 {
 	RessourceModule* ressource = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 	Player* player = new Player(ressource);
+	Camera* camera = player->CreateComponent<Camera>(sf::FloatRect({0,0},{800,800}), sf::Vector2f(400,400), sf::Vector2f(400,1600));
+	camera->UseView();
 	player->SetPosition(400, 400);
 	player->SetId(1);
 
-	Enemy* enemy = new Enemy(ressource);
+	EnemyBase* enemy = new EnemyBase(ressource);
 	enemy->SetPosition(100, 100);
 	enemy->SetId(2);
 
-	Enemy* enemy2 = new Enemy(ressource);
-	enemy2->SetPosition(700, 700);
+	EnemySniper* enemy2 = new EnemySniper(ressource, {600, 100}, {600,300});
+	enemy2->SetPosition(600, 100);
 	enemy2->SetId(2);
 
 	VictoryPoint* victory = new VictoryPoint();

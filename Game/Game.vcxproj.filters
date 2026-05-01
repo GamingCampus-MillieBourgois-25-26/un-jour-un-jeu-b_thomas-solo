@@ -99,6 +99,9 @@
     <None Include="Include\BulletHell\EnemyBulletHell.inl">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
+    <None Include="Include\Top-Down\EnemyTopDown.inl">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\BulletHell\BulletHell.h">

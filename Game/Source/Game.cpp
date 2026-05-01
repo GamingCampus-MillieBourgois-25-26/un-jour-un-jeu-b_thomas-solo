@@ -45,6 +45,7 @@ int main()
     ressourceModule->AddTexture("TopDownDestroyBarrel", "Assets/Top-Down/barrelBlack.png");
     ressourceModule->AddTexture("TopDownDestroyFrame", "Assets/Top-Down/tankBlack.png");
     ressourceModule->AddTexture("smoke", "Assets/Top-Down/smokeGrey5.png");
+    ressourceModule->AddTexture("obstacle", "Assets/Top-Down/barrelGrey_side.png");
 
     SceneModule* sceneModule = moduleManger->GetModule<SceneModule>();
     sceneModule->AddScene<BulletHell::BulletHell>("BulletHell");

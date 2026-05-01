@@ -7,6 +7,7 @@ TopDown::Player::Player(RessourceModule* ressourceModule): Tank(ressourceModule-
 {
 	CreateComponent<PlayerInput>();
 	CollisionBoxPlayer* box = CreateComponent<CollisionBoxPlayer>();
+	CreateComponent<ReloadHud>(sf::Vector2f(20, 740));
 	box->Init({ 40,40 });
 	speed = 90;
 	rotationSpeed = 100;
@@ -134,4 +135,33 @@ void TopDown::Camera::UseView()
 	isUseing = true;
 }
 
+TopDown::ReloadHud::ReloadHud(sf::Vector2f _pos):pos(_pos)
+{
+	
+	rectBg.setFillColor(sf::Color::Transparent);
+	rectBg.setOutlineColor(sf::Color::White);
+	rectBg.setOutlineThickness(-1);
+	rectBg.setSize({ 80,20 });
+	rectReload.setFillColor(sf::Color::Yellow);
+}
 
+void TopDown::ReloadHud::Start()
+{
+	player = static_cast<Player*>(owner);
+}
+
+void TopDown::ReloadHud::Update(TimeModule* timeModule)
+{
+	float factor = 1 - player->reloadTime / player->reloadTimeMax;
+	factor = std::clamp(factor, 0.f, 1.f);
+	rectReload.setSize({ factor * 80.f, 20.f });
+}
+
+void TopDown::ReloadHud::Render(WindowModule* windowModule)
+{
+	sf::Vector2f cameraPos = windowModule->GetWindow()->getView().getCenter() - windowModule->GetWindow()->getView().getSize() / 2.f;
+	rectBg.setPosition(pos + cameraPos);
+	rectReload.setPosition(pos + cameraPos);
+	windowModule->GetWindow()->draw(rectReload);
+	windowModule->GetWindow()->draw(rectBg);
+}

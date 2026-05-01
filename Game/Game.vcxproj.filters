@@ -1,189 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Source\Top-Down\Smoke.cpp" />
+    <ClCompile Include="Source\Top-Down\EnemyTopDown.cpp" />
+    <ClCompile Include="Source\Top-Down\ProjectileTopDown.cpp" />
+    <ClCompile Include="Source\Top-Down\PlayerTopDown.cpp" />
+    <ClCompile Include="Source\Match3\Candy.cpp" />
+    <ClCompile Include="Source\Match3\MapMatch3.cpp" />
+    <ClCompile Include="Source\Match3\Match3.cpp" />
+    <ClCompile Include="Source\Clicker\AutoUpgrade.cpp" />
+    <ClCompile Include="Source\Clicker\GameMasterClicker.cpp" />
+    <ClCompile Include="Source\Clicker\Clicker.cpp" />
+    <ClCompile Include="Source\TowerDefense\Build.cpp" />
+    <ClCompile Include="Source\TowerDefense\ButtonWave.cpp" />
+    <ClCompile Include="Source\TowerDefense\GameMaster.cpp" />
+    <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp" />
+    <ClCompile Include="Source\BasicBox.cpp" />
+    <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\SceneMenu.cpp" />
+    <ClCompile Include="Source\BulletHell\EnemyBulletHell.cpp" />
+    <ClCompile Include="Source\BulletHell\Projectile.cpp" />
+    <ClCompile Include="Source\BulletHell\BulletHell.cpp" />
+    <ClCompile Include="Source\BulletHell\Player.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\TowerDefense\TowerDefense.cpp" />
+    <ClCompile Include="Source\Text.cpp" />
+    <ClCompile Include="Source\Clicker\UpgradeAutoUp.cpp" />
+    <ClCompile Include="Source\Top-Down\TopDown.cpp" />
+    <ClCompile Include="Source\Top-Down\VictoryPoint.cpp" />
+    <ClCompile Include="Source\Top-Down\Obstacle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BulletHell\BulletHell.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BulletHell\Player.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BulletHell\Projectile.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BulletHell\EnemyBulletHell.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneMenu.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Button.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BasicBox.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TowerDefense\TowerDefense.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TowerDefense\GameMaster.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TowerDefense\ButtonWave.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Clicker\Clicker.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Clicker\GameMasterClicker.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Text.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Clicker\AutoUpgrade.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Clicker\UpgradeAutoUp.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Match3\Match3.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Match3\MapMatch3.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Match3\Candy.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Top-Down\TopDown.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Top-Down\PlayerTopDown.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Top-Down\ProjectileTopDown.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Top-Down\EnemyTopDown.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Top-Down\VictoryPoint.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Top-Down\Smoke.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TowerDefense\Build.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
+    <ClInclude Include="Include\TowerDefense\Build.h" />
+    <ClInclude Include="Include\Top-Down\EnemyTopDown.h" />
+    <ClInclude Include="Include\Match3\Candy.h" />
+    <ClInclude Include="Include\Clicker\AutoUpgrade.h" />
+    <ClInclude Include="Include\Clicker\GameMasterClicker.h" />
+    <ClInclude Include="Include\Clicker\Clicker.h" />
+    <ClInclude Include="Include\TowerDefense\ButtonWave.h" />
+    <ClInclude Include="Include\TowerDefense\GameMaster.h" />
+    <ClInclude Include="Include\TowerDefense\EnemyTowerDefense.h" />
+    <ClInclude Include="Include\BasicBox.h" />
+    <ClInclude Include="Include\Button.h" />
+    <ClInclude Include="Include\BulletHell\EnemyBulletHell.h" />
+    <ClInclude Include="Include\BulletHell\BulletHell.h" />
+    <ClInclude Include="Include\BulletHell\Player.h" />
+    <ClInclude Include="Include\BulletHell\Projectile.h" />
+    <ClInclude Include="Include\SceneMenu.h" />
+    <ClInclude Include="Include\TowerDefense\TowerDefense.h" />
+    <ClInclude Include="Include\Text.h" />
+    <ClInclude Include="Include\Clicker\UpgradeAutoUp.h" />
+    <ClInclude Include="Include\Match3\Match3.h" />
+    <ClInclude Include="Include\Match3\MapMatch3.h" />
+    <ClInclude Include="Include\Top-Down\TopDown.h" />
+    <ClInclude Include="Include\Top-Down\PlayerTopDown.h" />
+    <ClInclude Include="Include\Top-Down\ProjectileTopDown.h" />
+    <ClInclude Include="Include\Top-Down\VictoryPoint.h" />
+    <ClInclude Include="Include\Top-Down\Smoke.h" />
+    <ClInclude Include="Include\Top-Down\Obstacle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="Include\BulletHell\EnemyBulletHell.inl">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </None>
-    <None Include="Include\Top-Down\EnemyTopDown.inl">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Include\BulletHell\BulletHell.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\BulletHell\Player.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\BulletHell\Projectile.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\BulletHell\EnemyBulletHell.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\SceneMenu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Button.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\BasicBox.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\TowerDefense\TowerDefense.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\TowerDefense\EnemyTowerDefense.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\TowerDefense\GameMaster.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\TowerDefense\ButtonWave.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Clicker\Clicker.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Clicker\GameMasterClicker.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Text.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Clicker\AutoUpgrade.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Clicker\UpgradeAutoUp.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Match3\Match3.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Match3\MapMatch3.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Match3\Candy.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Top-Down\TopDown.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Top-Down\PlayerTopDown.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Top-Down\ProjectileTopDown.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Top-Down\EnemyTopDown.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Top-Down\VictoryPoint.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Top-Down\Smoke.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\TowerDefense\Build.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
+    <None Include="Include\BulletHell\EnemyBulletHell.inl" />
+    <None Include="Include\Top-Down\EnemyTopDown.inl" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "Include/Top-Down/TopDown.h"
 #include <RessourceModule.h>
 #include <CollisionBox.h>
+#include "PlayerTopDown.h"
 
 
 namespace TopDown
@@ -20,7 +21,7 @@ namespace TopDown
 	};
 	class EnemyBase : public Enemy {
 	public:
-		EnemyBase(RessourceModule* ressourceModule);
+		EnemyBase(RessourceModule* ressourceModule, std::vector<sf::Vector2f>patrolPoints);
 	};
 	class EnemySniper : public Enemy {
 	public:
@@ -113,6 +114,12 @@ namespace TopDown
 		Snipe(sf::Vector2f _snipeSpot, float time);
 		void Start()override;
 		void Update(TimeModule* timeModule)override;
+	};
+	class Disable : public State
+	{
+	public:
+		GameObject* player = nullptr;
+		void Start()override;
 	};
 	
 

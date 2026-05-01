@@ -10,7 +10,7 @@ TopDown::Enemy::Enemy(sf::Texture* texBarrel, sf::Texture* texFrame): Tank(texBa
 {
 }
 
-TopDown::EnemyBase::EnemyBase(RessourceModule* ressourceModule): Enemy(ressourceModule->GetTexture("TopDownBarrelRed"), ressourceModule->GetTexture("TopDownFrameRed"))
+TopDown::EnemyBase::EnemyBase(RessourceModule* ressourceModule, std::vector<sf::Vector2f>patrolPoints): Enemy(ressourceModule->GetTexture("TopDownBarrelRed"), ressourceModule->GetTexture("TopDownFrameRed"))
 {
 	speed = 55;
 	rotationBarrelSpeed = 40;
@@ -19,8 +19,7 @@ TopDown::EnemyBase::EnemyBase(RessourceModule* ressourceModule): Enemy(ressource
 	box->Init({ 40,40 });
 
 	FSM* fsm = CreateComponent<FSM>();
-	std::vector<sf::Vector2f> target({ sf::Vector2f(100.f, 100.f), sf::Vector2f(300.f, 300.f) });
-	Patrol* patrol = new Patrol(target);
+	Patrol* patrol = new Patrol(patrolPoints);
 	patrol->condition = [](GameObject* owner, State* currentState) {
 		sf::Vector2f playerPos = owner->GetScene()->GetGameObject(1)->GetPosition();
 		sf::Vector2f delta = playerPos - owner->GetPosition();
@@ -42,10 +41,19 @@ TopDown::EnemyBase::EnemyBase(RessourceModule* ressourceModule): Enemy(ressource
 		};
 	DestroyState* destroy = new DestroyState();
 	destroy->condition = [](GameObject* owner, State* currentState) {return false; };
+
+	Disable* disable = new Disable();
+	disable->condition = [](GameObject* owner, State* currentState) {
+		Disable* disable = static_cast<Disable*>(currentState);
+		Camera* camera = disable->player->GetComponent<Camera>();
+		sf::FloatRect view(camera->view.getCenter() - camera->view.getSize() / 2.f, camera->view.getSize());
+		return view.contains(owner->GetPosition());
+		};
+	fsm->AddState(disable, patrol);
 	fsm->AddState(patrol, chase);
 	fsm->AddState(chase, patrol);
 	fsm->AddState(destroy, destroy);
-	fsm->Init(patrol);
+	fsm->Init(disable);
 }
 
 TopDown::EnemySniper::EnemySniper(RessourceModule* ressourceModule, sf::Vector2f hideSpot, sf::Vector2f snipeSpot) : Enemy(ressourceModule->GetTexture("TopDownBarrelBlue"), ressourceModule->GetTexture("TopDownFrameBlue"))
@@ -67,10 +75,18 @@ TopDown::EnemySniper::EnemySniper(RessourceModule* ressourceModule, sf::Vector2f
 		};
 	DestroyState* destroy = new DestroyState();
 	destroy->condition = [](GameObject* owner, State* currentState) {return false; };
+	Disable* disable = new Disable();
+	disable->condition = [](GameObject* owner, State* currentState) {
+		Disable* disable = static_cast<Disable*>(currentState);
+		Camera* camera = disable->player->GetComponent<Camera>();
+		sf::FloatRect view(camera->view.getCenter() - camera->view.getSize() / 2.f, camera->view.getSize());
+		return view.contains(owner->GetPosition());
+		};
+	fsm->AddState(disable, hide);
 	fsm->AddState(hide, snipe);
 	fsm->AddState(snipe, hide);
 	fsm->AddState(destroy, destroy);
-	fsm->Init(hide);
+	fsm->Init(disable);
 
 
 }
@@ -86,10 +102,10 @@ void TopDown::FSM::Init(State* startState)
 
 void TopDown::FSM::Start()
 {
-	currentState->Start();
 	for (auto state : states) {
 		state.first->owner = static_cast<Enemy*>(owner);
 	}
+	currentState->Start();
 }
 
 void TopDown::FSM::Update(TimeModule* timeModule)
@@ -323,6 +339,7 @@ void TopDown::EnemyCollision::Collide(CollisionBox* other)
 			FSM* fsm = owner->GetComponent<FSM>();
 			fsm->currentState = fsm->GetState<DestroyState>();
 			fsm->currentState->Start();
+			projectile->GetScene()->DestroyObject(projectile);
 		}
 	}
 }
@@ -377,3 +394,9 @@ void TopDown::Snipe::Update(TimeModule* timeModule)
 {
 	shootDelay -= timeModule->GetDeltaTime();
 }
+
+void TopDown::Disable::Start()
+{
+	player = owner->GetScene()->GetGameObject(1);
+}
+

@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Top-Down\Obstacle.cpp" />
     <ClCompile Include="Source\Top-Down\Smoke.cpp" />
     <ClCompile Include="Source\Top-Down\EnemyTopDown.cpp" />
     <ClCompile Include="Source\Top-Down\ProjectileTopDown.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Include\Top-Down\ProjectileTopDown.h" />
     <ClInclude Include="Include\Top-Down\VictoryPoint.h" />
     <ClInclude Include="Include\Top-Down\Smoke.h" />
+    <ClInclude Include="Include\Top-Down\Obstacle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

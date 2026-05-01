@@ -43,5 +43,18 @@ namespace TopDown
 		void UseView();
 	};
 
+	class ReloadHud : public Component
+	{
+	public:
+		Player* player = nullptr;
+		sf::RectangleShape rectBg;
+		sf::RectangleShape rectReload;
+		sf::Vector2f pos;
+		ReloadHud(sf::Vector2f _pos);
+		void Start()override;
+		void Update(TimeModule* timeModule)override;
+		void Render(WindowModule* windowModule)override;
+	};
+
 }
 

@@ -25,4 +25,12 @@ void TopDown::ProjectileMouvement::Update(TimeModule* timeModule)
 	float rad = owner->GetRotation() * 3.141 / 180;
 	sf::Vector2f direction(cos(rad), sin(rad));
 	owner->Move(direction * bulletSpeed * timeModule->GetDeltaTime());
+
+
+	sf::View view = timeModule->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->getView();
+	sf::FloatRect viewRect(view.getCenter() - view.getSize() / 2.f, view.getSize());
+	if (!viewRect.findIntersection(owner->GetComponent<CollisionBox>()->rect))
+	{
+		owner->GetScene()->DestroyObject(owner);
+	}
 }

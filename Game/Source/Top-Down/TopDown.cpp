@@ -4,6 +4,7 @@
 #include <RessourceModule.h>
 #include <Engine.h>
 #include <Include/Top-Down/VictoryPoint.h>
+#include <Include/Top-Down/Obstacle.h>
 
 TopDown::TopDown::TopDown()
 {
@@ -11,16 +12,19 @@ TopDown::TopDown::TopDown()
 	Player* player = new Player(ressource);
 	Camera* camera = player->CreateComponent<Camera>(sf::FloatRect({0,0},{800,800}), sf::Vector2f(400,400), sf::Vector2f(400,1600));
 	camera->UseView();
-	player->SetPosition(400, 400);
+	player->SetPosition(400, 1000);
 	player->SetId(1);
-
-	EnemyBase* enemy = new EnemyBase(ressource);
+	std::vector<sf::Vector2f> target({ sf::Vector2f(100.f, 100.f), sf::Vector2f(300.f, 300.f) });
+	EnemyBase* enemy = new EnemyBase(ressource, target);
 	enemy->SetPosition(100, 100);
 	enemy->SetId(2);
 
 	EnemySniper* enemy2 = new EnemySniper(ressource, {600, 100}, {600,300});
 	enemy2->SetPosition(600, 100);
 	enemy2->SetId(2);
+
+	Obstacle* obstacle = new Obstacle(ressource->GetTexture("obstacle"));
+	obstacle->SetPosition(500,100);
 
 	VictoryPoint* victory = new VictoryPoint();
 	victory->SetPosition(600, 600);
@@ -29,6 +33,7 @@ TopDown::TopDown::TopDown()
 	AddGameObject(enemy, 0);
 	AddGameObject(enemy2, 0);
 	AddGameObject(victory, 0);
+	AddGameObject(obstacle, 0);
 }
 TopDown::Tank::Tank(sf::Texture* texBarrel, sf::Texture* texFrame)
 {

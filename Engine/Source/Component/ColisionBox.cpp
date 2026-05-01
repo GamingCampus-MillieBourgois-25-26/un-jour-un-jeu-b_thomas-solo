@@ -21,7 +21,6 @@ void CollisionBox::Start()
 void CollisionBox::Update(TimeModule* timeModule) {
 	rect.position = { owner->GetPosition().x - rect.size.x / 2, owner->GetPosition().y - rect.size.y / 2 };
 	rect.size = { owner->GetScale().x * sizeRect.x, owner->GetScale().y * sizeRect.y };
-
 	collisionModule->colisionBoxs.push_back(this);
 	
 }
@@ -41,7 +40,7 @@ void CollisionBox::Destroy()
 	}
 }
 
-bool CollisionBox::IsColliding(CollisionBox other) {
+bool CollisionBox::IsColliding(CollisionBox* other) {
 	/*Utilise la methode AABB pour trouver les colisions avec une autre colisionBox
 	input:
 		Une autre boite de colision
@@ -49,7 +48,7 @@ bool CollisionBox::IsColliding(CollisionBox other) {
 		renvoie True si les 2 boite se touche
 		sinon False
 	*/
-	if (rect.findIntersection(other.rect)) {
+	if (rect.findIntersection(other->rect)) {
 		return true;
 	}
 	return false;

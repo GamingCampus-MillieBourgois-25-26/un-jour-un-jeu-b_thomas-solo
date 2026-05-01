@@ -3,33 +3,21 @@
 #include <Engine.h>
 #include <RessourceModule.h>
 #include <CollisionBox.h>
-TowerDefense::Enemy::Enemy(float hp, float spd, float aTime): health(hp), speed(spd), activationTime(aTime){
-	CreateComponent<CollisionBox>();
+#include "Include/TowerDefense/GameMaster.h"
+#include <Include/BasicBox.h>
+
+TowerDefense::Enemy::Enemy(float hp, float spd, float aTime, GameMaster* _gameMaster, sf::Texture* tex): health(hp), speed(spd), activationTime(aTime), gameMaster(_gameMaster){
+	CollisionBox* box = CreateComponent<CollisionBox>();
+	box->Init({64,64});
 	CreateComponent<Mouvement>();
-}
-
-TowerDefense::PasLourd::PasLourd(float activationTime): Enemy(10,40,activationTime)
-{
-	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
-	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefensePasLourd"), sf::IntRect({0,0},{64,64}));
-}
-
-TowerDefense::Lourd::Lourd(float activationTime): Enemy(25, 20, activationTime)
-{
-	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
-	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefenseLourd"), sf::IntRect({ 0,0 }, { 64,64 }));
-}
-
-TowerDefense::TropLourd::TropLourd(float activationTime): Enemy(80, 10, activationTime)
-{
-	RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
-	SpriteRender* render = CreateComponent<SpriteRender>(ressourceModule->GetTexture("TowerDefenseTropLourd"), sf::IntRect({ 0,0 }, { 64,64 }));
+	CreateComponent<BasicBox>(64,64);
+	name = "Enemy";
 }
 
 void TowerDefense::Mouvement::Start()
 {
 	enemy = static_cast<Enemy*>(owner);
-	owner->SetPosition(-100, 400);
+	//owner->SetPosition(-100, 400);
 	owner->SetRotation(0);
 }
 
@@ -49,6 +37,10 @@ void TowerDefense::Mouvement::Update(TimeModule* timeModule)
 	}
 	else
 		enemy->activationTime -= timeModule->GetDeltaTime();
+}
+void TowerDefense::Mouvement::Destroy()
+{
+	//std::cout << "objet detruit";
 }
 void TowerDefense::Mouvement::Move(sf::Vector2f target, TimeModule* timeModule) {
 	sf::Vector2f direction = target - owner->GetPosition();

@@ -1,0 +1,53 @@
+#include "pch.h"
+#include "CircleCollision.h"
+
+CircleCollision::CircleCollision(float rds):radius(rds)
+{
+}
+
+void CircleCollision::Render(WindowModule* windowModule)
+{
+    /*sf::CircleShape circle(radius);
+    circle.setPosition(owner->GetPosition());
+    circle.setOrigin(circle.getGeometricCenter());
+    windowModule->GetWindow()->draw(circle);*/
+}
+
+bool CircleCollision::IsColliding(CollisionBox* other)
+{
+    CircleCollision* circle = dynamic_cast<CircleCollision*>(other);
+    if (circle == nullptr) {
+        
+        if (CalculateDistance(other->rect.position) < radius) {
+            return true;
+        }
+        if (CalculateDistance({ other->rect.position.x + other->rect.size.x, other->rect.position.y }) < radius) {
+            return true;
+        }
+        if (CalculateDistance({ other->rect.position.x, other->rect.position.y + other->rect.size.y }) < radius) {
+            return true;
+        }
+        if (CalculateDistance(other->rect.position + other->rect.size) < radius) {
+            return true;
+        }
+    }
+    else
+    {
+        if (CalculateDistance(circle->owner->GetPosition()) < radius + circle->radius) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void CircleCollision::Collide(CollisionBox* other)
+{
+    collide(other);
+}
+
+float CircleCollision::CalculateDistance(sf::Vector2f point)
+{
+    sf::Vector2f direction = point - owner->GetPosition();
+    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+    return distance;
+}

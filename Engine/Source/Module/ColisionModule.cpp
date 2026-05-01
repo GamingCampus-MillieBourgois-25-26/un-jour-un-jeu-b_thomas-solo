@@ -16,7 +16,7 @@ void CollisionModule::Update()
 		for (CollisionBox* collisionBoxJ : colisionBoxs)
 		{
 			if (collisonBoxI != collisionBoxJ) {
-				if (collisonBoxI->IsColliding(*collisionBoxJ)) {
+				if (collisonBoxI->IsColliding(collisionBoxJ)) {
 					collisonBoxI->Collide(collisionBoxJ);
 				}
 			}

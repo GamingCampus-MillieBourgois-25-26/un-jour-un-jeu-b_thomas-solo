@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CircleCollision.h" />
     <ClInclude Include="Include\Component\Audio.h" />
     <ClInclude Include="Include\Component\CollisionBox.h" />
     <ClInclude Include="Include\Module\CollisionModule.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Include\Module\WindowModule.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CircleCollision.cpp" />
     <ClCompile Include="Source\Component\Audio.cpp" />
     <ClCompile Include="Source\Component\ColisionBox.cpp" />
     <ClCompile Include="Source\Module\ColisionModule.cpp" />

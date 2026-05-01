@@ -141,6 +141,7 @@
     <ClCompile Include="Source\Clicker\AutoUpgrade.cpp" />
     <ClCompile Include="Source\Clicker\GameMasterClicker.cpp" />
     <ClCompile Include="Source\Clicker\Clicker.cpp" />
+    <ClCompile Include="Source\TowerDefense\Build.cpp" />
     <ClCompile Include="Source\TowerDefense\ButtonWave.cpp" />
     <ClCompile Include="Source\TowerDefense\GameMaster.cpp" />
     <ClCompile Include="Source\TowerDefense\EnemyTowerDefense.cpp" />
@@ -169,6 +170,7 @@
     <None Include="Include\Top-Down\EnemyTopDown.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\TowerDefense\Build.h" />
     <ClInclude Include="Include\Top-Down\EnemyTopDown.h" />
     <ClInclude Include="Include\Match3\Candy.h" />
     <ClInclude Include="Include\Clicker\AutoUpgrade.h" />

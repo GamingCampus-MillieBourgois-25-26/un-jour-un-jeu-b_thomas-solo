@@ -8,6 +8,7 @@ namespace TopDown
 	{
 	public:
 		TopDown();
+		TopDown* Reset()override;
 	};
 	class Tank : public GameObject
 	{

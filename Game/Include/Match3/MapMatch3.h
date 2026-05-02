@@ -18,6 +18,8 @@ namespace Match3
 		void Awake()override;
 		Candy* CreateCandy(int x, int y);
 		Candy* MakeCandy(int i, sf::Color color, int x, int y);
+		bool IsCandyFalling();
+		void PrintMap();
 	};
 	class MapUpdater : public Component {
 	public:

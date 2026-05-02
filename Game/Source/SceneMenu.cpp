@@ -39,7 +39,7 @@ SceneMenu::SceneMenu()
 
 	buttonTowerDefense->CreateComponent<Button>([]() {
 		SceneModule* sceneModule = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
-		sceneModule->SetMain(sceneModule->AddScene<TowerDefense::TowerDefense>("BulletHell"));
+		sceneModule->SetMain(sceneModule->AddScene<TowerDefense::TowerDefense>("TowerDefense"));
 		});
 
 	buttonTowerDefense->CreateComponent<BasicBox>(200,50);
@@ -57,7 +57,7 @@ SceneMenu::SceneMenu()
 
 	buttonClicker->CreateComponent<Button>([]() {
 		SceneModule* sceneModule = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
-		sceneModule->SetMain(sceneModule->AddScene<Clicker::Clicker>("BulletHell"));
+		sceneModule->SetMain(sceneModule->AddScene<Clicker::Clicker>("Clicker"));
 		});
 
 	buttonClicker->CreateComponent<BasicBox>(200,50);
@@ -75,7 +75,7 @@ SceneMenu::SceneMenu()
 
 	buttonMatch3->CreateComponent<Button>([]() {
 		SceneModule* sceneModule = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
-		sceneModule->SetMain(sceneModule->AddScene<Match3::Match3>("BulletHell"));
+		sceneModule->SetMain(sceneModule->AddScene<Match3::Match3>("Match3"));
 		});
 
 	buttonMatch3->CreateComponent<BasicBox>(200,50);
@@ -93,7 +93,7 @@ SceneMenu::SceneMenu()
 
 	buttonTopDown->CreateComponent<Button>([]() {
 		SceneModule* sceneModule = Engine::GetInstance()->GetModuleManager()->GetModule<SceneModule>();
-		sceneModule->SetMain(sceneModule->AddScene<TopDown::TopDown>("BulletHell"));
+		sceneModule->SetMain(sceneModule->AddScene<TopDown::TopDown>("TopDown"));
 		});
 
 	buttonTopDown->CreateComponent<BasicBox>(200,50);
@@ -112,4 +112,9 @@ SceneMenu::SceneMenu()
 	AddGameObject(buttonClicker, 0);
 	AddGameObject(buttonMatch3, 0);
 	AddGameObject(buttonTopDown, 0);
+}
+
+SceneMenu* SceneMenu::Reset()
+{
+	return new SceneMenu();
 }

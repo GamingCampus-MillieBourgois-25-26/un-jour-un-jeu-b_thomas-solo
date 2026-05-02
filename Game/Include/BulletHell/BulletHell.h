@@ -6,6 +6,7 @@ namespace BulletHell
 	{
 	public:
 		BulletHell();
+		BulletHell* Reset()override;
 	};
 
 }

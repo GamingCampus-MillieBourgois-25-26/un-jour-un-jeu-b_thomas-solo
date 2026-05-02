@@ -14,6 +14,7 @@ public:
 	void LoadTexture(std::string path);
 	void Repeated();
 	void SetTextureRect(sf::IntRect textureRect);
+	void Start()override;
 	void Render(WindowModule* windowModule) override;
 	void Update(TimeModule* timeModule) override;
 	float offsetRotation = 0;

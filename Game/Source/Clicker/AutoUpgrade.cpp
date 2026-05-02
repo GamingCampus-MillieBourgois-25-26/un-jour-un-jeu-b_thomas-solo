@@ -17,7 +17,7 @@ Clicker::AutoUpgrade::AutoUpgrade(float cst, float _nbAuto, GameMaster* _gameMas
 			}
 		});
 
-	CreateComponent<BasicBox>(50, 50);
+	CreateComponent<BasicBox>(50.f, 50.f);
 	CollisionBox* box = CreateComponent<CollisionBox>();
-	box->Init({ 50,50 });
+	box->Init({ 50.f,50.f });
 }

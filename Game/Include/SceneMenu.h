@@ -4,5 +4,6 @@ class SceneMenu : public Scene
 {
 public:
 	SceneMenu();
+	SceneMenu* Reset()override;
 };
 

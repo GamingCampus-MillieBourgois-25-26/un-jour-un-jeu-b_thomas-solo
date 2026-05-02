@@ -14,17 +14,22 @@ SpriteRender::SpriteRender(sf::Texture* texture, sf::IntRect textureRect):tex(te
 {
 	SetTextureRect(textureRect);
 }
-
-void SpriteRender::Render(WindowModule* windowModule) {
-	
-	windowModule->GetWindow()->draw(sprite);
+void SpriteRender::Start()
+{
+	sprite.setPosition(owner->GetPosition());
+	sprite.setScale(owner->GetScale());
+	sprite.setRotation(sf::degrees(owner->GetRotation() + offsetRotation));
 }
-
 void SpriteRender::Update(TimeModule* timeModule) {
 	sprite.setPosition(owner->GetPosition());
 	sprite.setScale(owner->GetScale());
 	sprite.setRotation(sf::degrees(owner->GetRotation() + offsetRotation));
 }
+
+void SpriteRender::Render(WindowModule* windowModule) {
+	windowModule->GetWindow()->draw(sprite);
+}
+
 
 void SpriteRender::Repeated() {
 	tex->setRepeated(true);
@@ -36,3 +41,4 @@ void SpriteRender::SetTextureRect(sf::IntRect textureRect)
 	sprite.setTextureRect(textureRect);
 	sprite.setOrigin({ (float)textureRect.size.x / 2,(float)textureRect.size.y / 2 });
 }
+

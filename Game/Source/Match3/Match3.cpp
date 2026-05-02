@@ -8,3 +8,8 @@ Match3::Match3::Match3()
 	AddGameObject(map, 1);
 
 }
+
+Match3::Match3* Match3::Match3::Reset()
+{
+	return new Match3();
+}

@@ -18,3 +18,8 @@ TowerDefense::TowerDefense::TowerDefense()
 	AddGameObject(launcher, 0);
 	//AddGameObject(dummy, 0);
 }
+
+TowerDefense::TowerDefense* TowerDefense::TowerDefense::Reset()
+{
+	return new TowerDefense();
+}

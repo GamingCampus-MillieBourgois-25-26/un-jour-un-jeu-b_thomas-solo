@@ -12,6 +12,7 @@ public:
 	void Update(TimeModule* deltaTime);
 	void Render(WindowModule* window);
 	void Destroy();
+	virtual Scene* Reset() = 0;
 	std::string GetName() { return name; }
 	GameObject* GetGameObject(std::string name);
 	GameObject* GetGameObject(int id);

@@ -29,6 +29,8 @@
     <ClCompile Include="Source\Top-Down\TopDown.cpp" />
     <ClCompile Include="Source\Top-Down\VictoryPoint.cpp" />
     <ClCompile Include="Source\Top-Down\Obstacle.cpp" />
+    <ClCompile Include="Source\SceneVictoire.cpp" />
+    <ClCompile Include="Source\LastSceneBackground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\TowerDefense\Build.h" />
@@ -58,6 +60,8 @@
     <ClInclude Include="Include\Top-Down\VictoryPoint.h" />
     <ClInclude Include="Include\Top-Down\Smoke.h" />
     <ClInclude Include="Include\Top-Down\Obstacle.h" />
+    <ClInclude Include="Include\SceneVictoire.h" />
+    <ClInclude Include="Include\LastSceneBackground.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

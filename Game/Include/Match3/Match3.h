@@ -6,6 +6,7 @@ namespace Match3
 	{
 	public:
 		Match3();
+		Match3* Reset()override;
 	};
 
 }

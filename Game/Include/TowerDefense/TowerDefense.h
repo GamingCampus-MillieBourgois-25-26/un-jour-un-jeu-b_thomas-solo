@@ -6,5 +6,6 @@ namespace TowerDefense
 	{
 	public:
 		TowerDefense();
+		TowerDefense* Reset()override;
 	};
 }

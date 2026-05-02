@@ -20,13 +20,22 @@ public:
 			if (scene->GetName() == name)
 				DestroyScene(scene);
 		}
-		T* NewScene = new T();
-		NewScene->SetName(name);
-		if (NewScene != nullptr) {
-			scenes.push_back(NewScene);
-			NewScene->Start();
+		T* newScene = new T();
+		newScene->SetName(name);
+		if (newScene != nullptr) {
+			scenes.push_back(newScene);
+			newScene->Start();
 		}
-		return NewScene;
+		return newScene;
+	}
+	Scene* AddScene(Scene* scene) {
+		Scene* newScene = scene->Reset();
+		newScene->SetName(scene->GetName());
+		DestroyScene(scene);
+		scenes.push_back(newScene);
+		newScene->Start();
+		return newScene;
+
 	}
 	void DestroyScene(Scene* scene) {
 		scene->Destroy();

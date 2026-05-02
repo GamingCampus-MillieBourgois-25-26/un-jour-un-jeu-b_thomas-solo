@@ -40,6 +40,7 @@ namespace TopDown
 		Camera(sf::FloatRect rect, sf::Vector2f _clampX, sf::Vector2f _clampY);
 		void Update(TimeModule* timeModule)override;
 		void Render(WindowModule* windowModule)override;
+		void SetCameraPos();
 		void UseView();
 	};
 
@@ -50,8 +51,7 @@ namespace TopDown
 		sf::RectangleShape rectBg;
 		sf::RectangleShape rectReload;
 		sf::Vector2f pos;
-		ReloadHud(sf::Vector2f _pos);
-		void Start()override;
+		ReloadHud(sf::Vector2f _pos, Player* player);
 		void Update(TimeModule* timeModule)override;
 		void Render(WindowModule* windowModule)override;
 	};

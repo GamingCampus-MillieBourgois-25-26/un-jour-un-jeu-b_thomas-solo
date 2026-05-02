@@ -6,6 +6,7 @@ namespace Clicker
 	{
 	public:
 		Clicker();
+		Clicker* Reset()override;
 	};
 }
 

@@ -7,8 +7,9 @@ namespace Match3
 	{
 	public:
 		bool checked = false;
+		bool falling = false;
 		MapMatch3* map = nullptr;
-		float speed = 20;
+		float speed = 500;
 		void Awake()override;
 		Candy(int i);
 		void MoveCandy(float posX, float posY);
@@ -20,7 +21,6 @@ namespace Match3
 		Candy* candy = nullptr;
 		void Start()override;
 		void Update(TimeModule* timeModule)override;
-		void Render(WindowModule* window)override;
 	};
 }
 

@@ -38,19 +38,14 @@ void Match3::CandyMovement::Update(TimeModule* timeModule)
 		if (distance <= candy->speed * timeModule->GetDeltaTime())
 		{
 			owner->SetPosition(target);
-			candy->map->nextFrame = true;
+			candy->falling = false;
 		}
 		else
 		{
 			owner->Move(direction * candy->speed * timeModule->GetDeltaTime());
-			candy->map->nextFrame = false;
+			candy->falling = true;
 		}
 	}
 }
 
-void Match3::CandyMovement::Render(WindowModule* window)
-{
-	if (candy->GetPosition() == target) {
-		candy->map->nextFrame = true;
-	}
-}
+

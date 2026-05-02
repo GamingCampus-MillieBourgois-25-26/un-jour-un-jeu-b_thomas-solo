@@ -7,7 +7,6 @@ TopDown::Player::Player(RessourceModule* ressourceModule): Tank(ressourceModule-
 {
 	CreateComponent<PlayerInput>();
 	CollisionBoxPlayer* box = CreateComponent<CollisionBoxPlayer>();
-	CreateComponent<ReloadHud>(sf::Vector2f(20, 740));
 	box->Init({ 40,40 });
 	speed = 90;
 	rotationSpeed = 100;
@@ -59,7 +58,7 @@ void TopDown::PlayerInput::Update(TimeModule* timeModule)
 
 void TopDown::PlayerInput::MoveForward(float speed)
 {
-	sf::Vector2f direction(cos(owner->GetRotation() * 3.141/180), sin(owner->GetRotation() * 3.141 / 180));
+	sf::Vector2f direction(cos(owner->GetRotation() * 3.141f/180.f), sin(owner->GetRotation() * 3.141f / 180.f));
 	owner->Move(direction * speed);
 }
 
@@ -118,10 +117,7 @@ TopDown::Camera::Camera(sf::FloatRect rect, sf::Vector2f _clampX, sf::Vector2f _
 
 void TopDown::Camera::Update(TimeModule* timeModule)
 {
-	sf::Vector2f cameraPos = owner->GetPosition();
-	cameraPos.x = std::clamp(cameraPos.x, clampX.x, clampX.y);
-	cameraPos.y = std::clamp(cameraPos.y, clampY.x, clampY.y);
-	view.setCenter(cameraPos);
+	SetCameraPos();
 }
 
 void TopDown::Camera::Render(WindowModule* windowModule)
@@ -130,12 +126,22 @@ void TopDown::Camera::Render(WindowModule* windowModule)
 		windowModule->GetWindow()->setView(view);
 }
 
+void TopDown::Camera::SetCameraPos()
+{
+	sf::Vector2f cameraPos = owner->GetPosition();
+	cameraPos.x = std::clamp(cameraPos.x, clampX.x, clampX.y);
+	cameraPos.y = std::clamp(cameraPos.y, clampY.x, clampY.y);
+	view.setCenter(cameraPos);
+}
+
 void TopDown::Camera::UseView()
 {
 	isUseing = true;
+	SetCameraPos();
+	//Engine::GetInstance()->GetModuleManager()->GetModule<WindowModule>()->GetWindow()->setView(view);
 }
 
-TopDown::ReloadHud::ReloadHud(sf::Vector2f _pos):pos(_pos)
+TopDown::ReloadHud::ReloadHud(sf::Vector2f _pos, Player* _player):pos(_pos),player(_player)
 {
 	
 	rectBg.setFillColor(sf::Color::Transparent);
@@ -145,10 +151,7 @@ TopDown::ReloadHud::ReloadHud(sf::Vector2f _pos):pos(_pos)
 	rectReload.setFillColor(sf::Color::Yellow);
 }
 
-void TopDown::ReloadHud::Start()
-{
-	player = static_cast<Player*>(owner);
-}
+
 
 void TopDown::ReloadHud::Update(TimeModule* timeModule)
 {

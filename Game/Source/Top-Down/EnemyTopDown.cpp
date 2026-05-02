@@ -46,8 +46,12 @@ TopDown::EnemyBase::EnemyBase(RessourceModule* ressourceModule, std::vector<sf::
 	disable->condition = [](GameObject* owner, State* currentState) {
 		Disable* disable = static_cast<Disable*>(currentState);
 		Camera* camera = disable->player->GetComponent<Camera>();
+		sf::FloatRect rect(owner->GetPosition() - sf::Vector2f(35.f, 35.f), { 70,70 });
 		sf::FloatRect view(camera->view.getCenter() - camera->view.getSize() / 2.f, camera->view.getSize());
-		return view.contains(owner->GetPosition());
+		if (view.findIntersection(rect))
+			return true;
+		else
+			return false;
 		};
 	fsm->AddState(disable, patrol);
 	fsm->AddState(patrol, chase);
@@ -68,7 +72,7 @@ TopDown::EnemySniper::EnemySniper(RessourceModule* ressourceModule, sf::Vector2f
 		Hide* hide = static_cast<Hide*>(currentState);
 		return hide->hideTimer <= 0;
 		};
-	Snipe* snipe = new Snipe(snipeSpot, 15);
+	Snipe* snipe = new Snipe(snipeSpot, 12);
 	snipe->condition = [](GameObject* owner, State* currentState) {
 		Snipe* snipe = static_cast<Snipe*>(currentState);
 		return snipe->shootDelay <= 0;
@@ -79,10 +83,14 @@ TopDown::EnemySniper::EnemySniper(RessourceModule* ressourceModule, sf::Vector2f
 	disable->condition = [](GameObject* owner, State* currentState) {
 		Disable* disable = static_cast<Disable*>(currentState);
 		Camera* camera = disable->player->GetComponent<Camera>();
+		sf::FloatRect rect(owner->GetPosition() - sf::Vector2f(35.f,35.f), {70,70});
 		sf::FloatRect view(camera->view.getCenter() - camera->view.getSize() / 2.f, camera->view.getSize());
-		return view.contains(owner->GetPosition());
+		if (view.findIntersection(rect))
+			return true;
+		else
+			return false;
 		};
-	fsm->AddState(disable, hide);
+	fsm->AddState(disable, snipe);
 	fsm->AddState(hide, snipe);
 	fsm->AddState(snipe, hide);
 	fsm->AddState(destroy, destroy);
@@ -205,7 +213,7 @@ void TopDown::EnemySniperAi::Update(TimeModule* timeModule)
 	else if (Snipe* state = dynamic_cast<Snipe*>(fsm->currentState)) {
 		enemy->MoveForward(state->snipeSpot, enemy->speed * timeModule->GetDeltaTime(), false);
 		enemy->RotateBarrel(enemy->GetScene()->GetGameObject(1)->GetPosition(),enemy->rotationBarrelSpeed * timeModule->GetDeltaTime());
-		if (state->shootDelay <= 2 && state->shooted == false) {
+		if (state->shootDelay <= 3 && state->shooted == false) {
 			state->shooted = true;
 			RessourceModule* ressourceModule = Engine::GetInstance()->GetModuleManager()->GetModule<RessourceModule>();
 			enemy->Shoot(ressourceModule->GetTexture("TopDownBulletBlue"));

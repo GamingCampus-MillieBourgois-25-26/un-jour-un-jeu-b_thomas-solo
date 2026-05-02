@@ -17,3 +17,8 @@ BulletHell::BulletHell::BulletHell()
 	AddGameObject(player,0);
 	AddGameObject(enemy,0);
 }
+
+BulletHell::BulletHell* BulletHell::BulletHell::Reset()
+{
+	return new BulletHell();
+}

@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\LastSceneBackground.cpp" />
+    <ClCompile Include="Source\SceneVictoire.cpp" />
     <ClCompile Include="Source\Top-Down\Obstacle.cpp" />
     <ClCompile Include="Source\Top-Down\Smoke.cpp" />
     <ClCompile Include="Source\Top-Down\EnemyTopDown.cpp" />
@@ -171,6 +173,7 @@
     <None Include="Include\Top-Down\EnemyTopDown.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\LastSceneBackground.h" />
     <ClInclude Include="Include\TowerDefense\Build.h" />
     <ClInclude Include="Include\Top-Down\EnemyTopDown.h" />
     <ClInclude Include="Include\Match3\Candy.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="Include\Top-Down\VictoryPoint.h" />
     <ClInclude Include="Include\Top-Down\Smoke.h" />
     <ClInclude Include="Include\Top-Down\Obstacle.h" />
+    <ClInclude Include="Include\SceneVictoire.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

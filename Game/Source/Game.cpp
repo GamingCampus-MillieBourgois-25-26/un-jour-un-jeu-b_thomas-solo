@@ -7,6 +7,7 @@
 #include <Include/Clicker/Clicker.h>
 #include <Include/Match3/Match3.h>
 #include <Include/Top-Down/TopDown.h>
+#include <Include/SceneVictoire.h>
 
 
 int main()
@@ -54,7 +55,8 @@ int main()
     sceneModule->AddScene<Match3::Match3>("Match3");
     sceneModule->AddScene<TopDown::TopDown>("TopDown");
     sceneModule->AddScene<SceneMenu>("SceneMenu");
-    sceneModule->SetMain(sceneModule->GetScene("TopDown"));
+    sceneModule->AddScene<SceneVictoire>("sceneVictoire");
+    sceneModule->SetMain(sceneModule->GetScene("SceneMenu"));
 
     engine->Start();
     engine->Run();
